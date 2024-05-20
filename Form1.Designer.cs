@@ -33,6 +33,7 @@
             this.labelPlayer = new System.Windows.Forms.Label();
             this.labelDealer = new System.Windows.Forms.Label();
             this.buttonStartGame = new System.Windows.Forms.Button();
+            this.labelRound = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonToNextPlayer
@@ -83,11 +84,21 @@
             this.buttonStartGame.UseVisualStyleBackColor = true;
             this.buttonStartGame.Click += new System.EventHandler(this.buttonStartGame_Click);
             // 
+            // labelRound
+            // 
+            this.labelRound.AutoSize = true;
+            this.labelRound.Location = new System.Drawing.Point(75, 122);
+            this.labelRound.Name = "labelRound";
+            this.labelRound.Size = new System.Drawing.Size(39, 13);
+            this.labelRound.TabIndex = 5;
+            this.labelRound.Text = "Round";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelRound);
             this.Controls.Add(this.buttonStartGame);
             this.Controls.Add(this.labelDealer);
             this.Controls.Add(this.labelPlayer);
@@ -108,6 +119,7 @@
         private System.Windows.Forms.Label labelPlayer;
         private System.Windows.Forms.Label labelDealer;
         private System.Windows.Forms.Button buttonStartGame;
+        private System.Windows.Forms.Label labelRound;
     }
 }
 

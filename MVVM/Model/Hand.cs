@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokerDraw.MVVM.Model
 {
@@ -40,7 +38,7 @@ namespace PokerDraw.MVVM.Model
             if (_cards.Count < 5) 
                 _cards.Add(card);
             else 
-                throw new Exception("Impossible To Fill Hand. Hand Must Not Have More Than 5 Cards");
+                throw new Exception("Невозможно добавить карту. В руке не может быть больше 5 карт.");
         }
 
         public void Clear()
@@ -51,6 +49,11 @@ namespace PokerDraw.MVVM.Model
         public void ChangeCard(int index, Card newCard)
         {
             _cards[index] = newCard;
+        }
+
+        public void SortCards()
+        {
+            _cards.OrderBy(rank => rank).ToList();
         }
 
         public void Evaluate()
@@ -162,7 +165,7 @@ namespace PokerDraw.MVVM.Model
 
         private bool IsRoyalFlush()
         {
-            bool hasRoyalCards = _cards.Any(card => new List<Rank> { Rank.Ten, Rank.Jack, Rank.Queen, Rank.King, Rank.Ace }.Contains(card.Rank));
+            bool hasRoyalCards = _cards.Any(card => new List<Rank>{ Rank.Ten, Rank.Jack, Rank.Queen, Rank.King, Rank.Ace }.Contains(card.Rank));
             return hasRoyalCards && IsFlush();
         }
     }

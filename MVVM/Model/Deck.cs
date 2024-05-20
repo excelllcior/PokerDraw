@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokerDraw.MVVM.Model
 {
@@ -49,7 +46,7 @@ namespace PokerDraw.MVVM.Model
                 return card;
             }
             else
-                throw new Exception("Deck is Empty");
+                throw new Exception("Невозможно выдать карту. Колода пуста.");
         }
     }
 }

@@ -29,6 +29,7 @@ namespace PokerDraw
             _table.AddGame();
             _table.StartCurrentGame();
 
+            labelRound.Text = _table.CurrentGame.Round.ToString();
             labelPlayer.Text = _table.CurrentPlayer.Name;
             labelDealer.Text = _table.DealerPosition.ToString();
         }
@@ -36,12 +37,14 @@ namespace PokerDraw
         private void buttonChangeDealer_Click(object sender, EventArgs e)
         {
             _table.SwitchToNextDealerInGame();
+            labelRound.Text = _table.CurrentGame.Round.ToString();
             labelDealer.Text = _table.DealerPosition.ToString();
         }
 
         private void buttonToNextPlayer_Click(object sender, EventArgs e)
         {
             _table.SwitchToNextPlayerInGame();
+            labelRound.Text = _table.CurrentGame.Round.ToString();
             labelPlayer.Text = _table.CurrentPlayer.Name;
         }
 

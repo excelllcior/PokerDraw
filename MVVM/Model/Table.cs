@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokerDraw.MVVM.Model
 {
@@ -76,17 +74,26 @@ namespace PokerDraw.MVVM.Model
 
         public void SwitchToNextPlayerInGame()
         {
-            int CurrentPlayerIndex = _players.IndexOf(CurrentPlayer);
+            int currentPlayerIndex = _players.IndexOf(CurrentPlayer);
+            int lastPlayerIndex = _players.IndexOf(_players.Last());
+            int currentLastPlayerIndex = DealerPosition - 1;
 
-            if (CurrentPlayerIndex != _players.Count - 1)
+            if (currentLastPlayerIndex < 0)
+                currentLastPlayerIndex = lastPlayerIndex;
+
+            if (currentPlayerIndex != currentLastPlayerIndex)
             {
-                CurrentPlayerIndex++;
-                CurrentPlayer = _players[CurrentPlayerIndex];
+                if (currentPlayerIndex == lastPlayerIndex)
+                    currentPlayerIndex = 0;
+                else 
+                    currentPlayerIndex++;
+
+                CurrentPlayer = _players[currentPlayerIndex];
             }
             else
             {
                 CurrentGame.IncreaseRound();
-                CurrentPlayer = _players[0];
+                CurrentPlayer = _players[DealerPosition];
             }
 
             if (!CurrentPlayer.IsInGame)
@@ -95,7 +102,7 @@ namespace PokerDraw.MVVM.Model
 
         public void SwitchToNextDealerInGame()
         {
-            if (DealerPosition != _players.Count - 1)
+            if (DealerPosition != _players.IndexOf(_players.Last()))
                 DealerPosition++;
             else
                 DealerPosition = 0;
@@ -123,29 +130,60 @@ namespace PokerDraw.MVVM.Model
         public void DetermineWinners()
         {
             Ranking highestRanking = Ranking.HighCard;
-            List<Player> winners = new List<Player>();
+            List<Player> tempWinners = new List<Player>();
 
             foreach (Player player in _players)
             {
                 if (player.IsInGame)
                 {
+                    player.Hand.SortCards();
                     player.Hand.Evaluate();
+
                     if (player.Hand.Ranking > highestRanking)
                     {
-                        winners.Clear();
-                        winners.Add(player);
+                        tempWinners.Clear();
+                        tempWinners.Add(player);
                         highestRanking = player.Hand.Ranking;
                     }
                     else if (player.Hand.Ranking == highestRanking)
-                    {
-                        winners.Add(player);
-                    }
+                        tempWinners.Add(player);
                 }
             }
 
-            foreach (Player winner in winners) 
+            for (int i = 0; i < 5; i++)
             {
-                CurrentGame.AddWinner(winner);
+                if (tempWinners.Count > 1)
+                {
+                    CompareKickers(tempWinners, i);
+                }
+            }
+
+            if (tempWinners.Count > 1)
+            {
+                foreach (Player player in tempWinners)
+                {
+                    CurrentGame.AddWinner(player);
+                }
+            }
+        }
+
+        private void CompareKickers(List<Player> tempWinners, int kickerIndex)
+        {
+            int highestKickerValue = 0;
+
+            foreach (Player player in tempWinners)
+            {
+                Card kicker = player.Hand.GetCard(kickerIndex);
+                int currentKickerRank = (int)kicker.Rank;
+
+                if (currentKickerRank > highestKickerValue)
+                {
+                    tempWinners.Clear();
+                    tempWinners.Add(player);
+                    highestKickerValue = currentKickerRank;
+                }
+                else if (currentKickerRank == highestKickerValue)
+                    tempWinners.Add(player);
             }
         }
     }
