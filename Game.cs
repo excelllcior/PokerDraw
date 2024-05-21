@@ -28,9 +28,6 @@ namespace PokerDraw
         public void IncreasePot(int amount)
         {
             Pot += amount;
-
-            if (Bet < amount)
-                Bet = amount;
         }
 
         public void SetMaxBet(int playersBet)

@@ -17,31 +17,49 @@ namespace PokerDraw
         public PokerTableScreen(List<string> playerNames)
         {
             InitializeComponent();
+            SubscribeOnClickRecursively(this);
 
             foreach (string name in playerNames) 
             {
                 _table.AddPlayer(name, 1000);
             }
 
-            var playerGroupBoxes = new List<GroupBox>{
-                groupBoxPlayer1, groupBoxPlayer2, groupBoxPlayer3, groupBoxPlayer4,
+            var actionBarButtons = new List<Button> { 
+                buttonFold, buttonCheck, buttonCall, buttonConfirmBet 
             };
 
-            foreach (Control c in Controls)
+            foreach (Button button in actionBarButtons) 
             {
-                if (c is GroupBox groupBox) 
+                button.Click += (s, e) => buttonNextPlayer.Enabled = true;
+                button.Click += (s, e) =>
                 {
-                    foreach (Control c2 in groupBox.Controls)
-                    {
-                        if (c2 is Button button)
-                        {
-                            button.Click += new EventHandler(UpdateUIOnClick);
-                        }
-                    }
-                }
+                    foreach (var b in actionBarButtons)
+                        b.Enabled = false;
+                };
+            }
+
+            var anteBarButtons = new List<Button> { buttonConfirmAnte, buttonCancelAnte };
+
+            foreach (Button button in anteBarButtons)
+            {
+                button.Click += (s, e) => buttonNextPlayer.Enabled = true;
+                button.Click += (s, e) => button.Enabled = false;
             }
         }
 
+        private void SubscribeOnClickRecursively(Control c)
+        {
+            if (c is Button)
+            {
+                c.Click += UpdateUIOnClick;
+            }
+            foreach (Control child in c.Controls)
+            {
+                SubscribeOnClickRecursively(child);
+            }
+        }
+
+        // Методы для обновления элементов интерфейса
         private void UpdateUIOnClick(object sender, EventArgs e)
         {
             UpdateUI();
@@ -49,13 +67,13 @@ namespace PokerDraw
 
         private void UpdateUI()
         {
-            labelRound.Text = $"Раунд: {_table.CurrentGame.Round}";
+            labelRound.Text = $"Раунд: {_table.GetCurrentGame().Round}";
             labelCurrentDealer.Text = $"Индекс дилера: {_table.DealerIndex}";
             labelCurrentPlayer.Text = $"Текущий игрок: {_table.GetPlayer(_table.CurrentPlayerIndex).Name}";
-            labelPot.Text = $"Банк: {_table.CurrentGame.Pot}";
+            labelPot.Text = $"Банк: {_table.GetCurrentGame().Pot}";
 
-            var playerGroupBoxes = new List<GroupBox>{
-                groupBoxPlayer1, groupBoxPlayer2, groupBoxPlayer3, groupBoxPlayer4,
+            var playerGroupBoxes = new List<GroupBox>{ 
+                groupBoxPlayer1, groupBoxPlayer2, groupBoxPlayer3, groupBoxPlayer4
             };
 
             for (int i = 0; i < _table.GetNumberOfPlayersInGame(); i++)
@@ -73,46 +91,148 @@ namespace PokerDraw
             labelCurrentPlayerBet.Text = $"Ставка: {currentPlayer.Bet}";
         }
 
+        private void UpdateCurrentPlayerMoveLabel(string move)
+        {
+            var playerGroupBox = Controls[$"groupBoxPlayer{_table.CurrentPlayerIndex + 1}"];
+            var playerMoveLabel = playerGroupBox.Controls[$"labelPlayer{_table.CurrentPlayerIndex + 1}Move"];
+            playerMoveLabel.Text = $"Ход: {move}";
+        }
+
+        private void UpdateActionBarButtons()
+        {
+            Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerIndex);
+            Game currentGame = _table.GetCurrentGame();
+
+            if (currentPlayer.Bet == currentGame.Bet)
+            {
+                buttonCheck.Enabled = true;
+            }
+
+            if (currentGame.Bet == _table.Ante && currentPlayer.Bankroll > 0
+                && (currentGame.Round != 2 || _table.CurrentPlayerIndex == _table.DealerIndex)
+                && (currentGame.Round != 5 || _table.CurrentPlayerIndex == _table.DealerIndex))
+            {
+                buttonBet.Enabled = true;
+            }
+
+            buttonCall.Text = "Колл";
+            int amountToCall = currentGame.Bet - currentPlayer.Bet;
+            if (currentPlayer.Bet < currentGame.Bet && currentPlayer.Bankroll >= amountToCall)
+            {
+                buttonCall.Text = $"Колл ({amountToCall})";
+                buttonCall.Enabled = true;
+            }
+
+            int amountToRaise = amountToCall + 1;
+            if (currentGame.Bet != _table.Ante && currentPlayer.Bet <= currentGame.Bet
+                && currentPlayer.Bankroll > amountToRaise
+                && (currentGame.Round != 2 || _table.CurrentPlayerIndex == _table.DealerIndex)
+                && (currentGame.Round != 5 || _table.CurrentPlayerIndex == _table.DealerIndex))
+            {
+                buttonRaise.Enabled = true;
+            }
+        }
+
+        // Загрузка формы
         private void PokerTableScreen_Load(object sender, EventArgs e)
         {
+            groupBoxAnteBar.Visible = true;
+            buttonStartGame.Enabled = false;
             _table.AddGame();
             _table.StartCurrentGame();
             UpdateUI();
         }
 
-        private void buttonFold_Click(object sender, EventArgs e)
+        // Кнопка для начала новой игры
+        private void buttonStartGame_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void buttonCheck_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonBet_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonCall_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonRaise_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        // Кнопка для передачи хода/логика наступления раундов
         private void buttonNextPlayer_Click(object sender, EventArgs e)
         {
             _table.SwitchToNextPlayerInGame();
         }
 
-        private void buttonStartGame_Click(object sender, EventArgs e)
+        // Кнопки для подтверждения/отмены внесения анте
+        private void buttonConfirmAnte_Click(object sender, EventArgs e)
         {
+            Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerIndex);
+            Game currentGame = _table.GetCurrentGame();
+            currentPlayer.PlaceBet(_table.Ante);
+            currentGame.IncreasePot(_table.Ante);
+            currentGame.SetMaxBet(_table.Ante);
+        }
 
+        private void buttonCancelAnte_Click(object sender, EventArgs e)
+        {
+            _table.GetPlayer(_table.CurrentPlayerIndex).Fold();
+        }
+
+        // Кнопки для совершения хода
+        private void buttonFold_Click(object sender, EventArgs e)
+        {
+            _table.GetPlayer(_table.CurrentPlayerIndex).Fold();
+            UpdateCurrentPlayerMoveLabel("Фолд");
+        }
+
+        private void buttonCheck_Click(object sender, EventArgs e)
+        {
+            UpdateCurrentPlayerMoveLabel("Чек");
+        }
+
+        private void buttonCall_Click(object sender, EventArgs e)
+        {
+            groupBoxBetBar.Text = "Введите сумму ставки";
+
+            Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerIndex);
+            Game currentGame = _table.GetCurrentGame();
+            int amountToCall = _table.GetCurrentGame().Bet - currentPlayer.Bet;
+            currentPlayer.PlaceBet(amountToCall);
+            currentGame.IncreasePot(amountToCall);
+            UpdateCurrentPlayerMoveLabel($"Колл ({amountToCall})");
+        }
+
+        private void buttonBet_Click(object sender, EventArgs e)
+        {
+            Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerIndex);
+            int minAmountToBet = 1;
+            numericUpDownBet.Minimum = minAmountToBet;
+            numericUpDownBet.Value = minAmountToBet;
+            numericUpDownBet.Maximum = currentPlayer.Bankroll;
+        }
+
+        private void buttonRaise_Click(object sender, EventArgs e)
+        {
+            groupBoxBetBar.Text = "Введите сумму рейза";
+
+            Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerIndex);
+            Game currentGame = _table.GetCurrentGame();
+            int minAmountToRaise = currentGame.Bet - currentPlayer.Bet + 1;
+            numericUpDownBet.Minimum = minAmountToRaise;
+            numericUpDownBet.Value = minAmountToRaise;
+            numericUpDownBet.Maximum = currentPlayer.Bankroll;
+        }
+
+        private void buttonConfirmBet_Click(object sender, EventArgs e)
+        {
+            groupBoxBetBar.Visible = false;
+            groupBoxActionBar.Visible = true;
+
+            Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerIndex);
+            Game currentGame = _table.GetCurrentGame();
+            int amountToBetOrRaise = int.Parse(numericUpDownBet.Value.ToString());
+            currentPlayer.PlaceBet(amountToBetOrRaise);
+            currentGame.IncreasePot(amountToBetOrRaise);
+            currentGame.SetMaxBet(currentPlayer.Bet);
+            UpdateCurrentPlayerMoveLabel($"Колл ({amountToBetOrRaise})");
+        }
+
+        private void buttonCancelBet_Click(object sender, EventArgs e)
+        {
+            groupBoxBetBar.Visible = false;
+            groupBoxActionBar.Visible = true;
         }
     }
 }

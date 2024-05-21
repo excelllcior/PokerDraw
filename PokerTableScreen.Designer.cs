@@ -65,7 +65,7 @@
             this.groupBoxAnteBar = new System.Windows.Forms.GroupBox();
             this.buttonCancelAnte = new System.Windows.Forms.Button();
             this.buttonConfirmAnte = new System.Windows.Forms.Button();
-            this.groupBetBar = new System.Windows.Forms.GroupBox();
+            this.groupBoxBetBar = new System.Windows.Forms.GroupBox();
             this.buttonCancelBet = new System.Windows.Forms.Button();
             this.buttonConfirmBet = new System.Windows.Forms.Button();
             this.numericUpDownBet = new System.Windows.Forms.NumericUpDown();
@@ -78,7 +78,7 @@
             this.groupBoxPlayer2.SuspendLayout();
             this.groupBoxPlayer1.SuspendLayout();
             this.groupBoxAnteBar.SuspendLayout();
-            this.groupBetBar.SuspendLayout();
+            this.groupBoxBetBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBet)).BeginInit();
             this.SuspendLayout();
             // 
@@ -164,15 +164,16 @@
             // 
             this.groupBoxActionBar.Controls.Add(this.buttonRaise);
             this.groupBoxActionBar.Controls.Add(this.buttonCheck);
+            this.groupBoxActionBar.Controls.Add(this.buttonBet);
             this.groupBoxActionBar.Controls.Add(this.buttonCall);
             this.groupBoxActionBar.Controls.Add(this.buttonFold);
-            this.groupBoxActionBar.Controls.Add(this.buttonBet);
             this.groupBoxActionBar.Location = new System.Drawing.Point(167, 507);
             this.groupBoxActionBar.Name = "groupBoxActionBar";
             this.groupBoxActionBar.Size = new System.Drawing.Size(410, 67);
             this.groupBoxActionBar.TabIndex = 2;
             this.groupBoxActionBar.TabStop = false;
             this.groupBoxActionBar.Text = "Выбор хода";
+            this.groupBoxActionBar.Visible = false;
             // 
             // buttonRaise
             // 
@@ -196,7 +197,7 @@
             // 
             // buttonCall
             // 
-            this.buttonCall.Location = new System.Drawing.Point(249, 19);
+            this.buttonCall.Location = new System.Drawing.Point(168, 16);
             this.buttonCall.Name = "buttonCall";
             this.buttonCall.Size = new System.Drawing.Size(75, 23);
             this.buttonCall.TabIndex = 5;
@@ -216,7 +217,7 @@
             // 
             // buttonBet
             // 
-            this.buttonBet.Location = new System.Drawing.Point(168, 19);
+            this.buttonBet.Location = new System.Drawing.Point(249, 19);
             this.buttonBet.Name = "buttonBet";
             this.buttonBet.Size = new System.Drawing.Size(75, 23);
             this.buttonBet.TabIndex = 4;
@@ -435,6 +436,7 @@
             this.groupBoxAnteBar.TabIndex = 6;
             this.groupBoxAnteBar.TabStop = false;
             this.groupBoxAnteBar.Text = "Сделать вступительный взнос?";
+            this.groupBoxAnteBar.Visible = false;
             // 
             // buttonCancelAnte
             // 
@@ -444,6 +446,7 @@
             this.buttonCancelAnte.TabIndex = 8;
             this.buttonCancelAnte.Text = "Нет";
             this.buttonCancelAnte.UseVisualStyleBackColor = true;
+            this.buttonCancelAnte.Click += new System.EventHandler(this.buttonCancelAnte_Click);
             // 
             // buttonConfirmAnte
             // 
@@ -453,18 +456,20 @@
             this.buttonConfirmAnte.TabIndex = 7;
             this.buttonConfirmAnte.Text = "Да";
             this.buttonConfirmAnte.UseVisualStyleBackColor = true;
+            this.buttonConfirmAnte.Click += new System.EventHandler(this.buttonConfirmAnte_Click);
             // 
-            // groupBetBar
+            // groupBoxBetBar
             // 
-            this.groupBetBar.Controls.Add(this.numericUpDownBet);
-            this.groupBetBar.Controls.Add(this.buttonConfirmBet);
-            this.groupBetBar.Controls.Add(this.buttonCancelBet);
-            this.groupBetBar.Location = new System.Drawing.Point(167, 361);
-            this.groupBetBar.Name = "groupBetBar";
-            this.groupBetBar.Size = new System.Drawing.Size(410, 67);
-            this.groupBetBar.TabIndex = 6;
-            this.groupBetBar.TabStop = false;
-            this.groupBetBar.Text = "Введите сумму ставки";
+            this.groupBoxBetBar.Controls.Add(this.numericUpDownBet);
+            this.groupBoxBetBar.Controls.Add(this.buttonConfirmBet);
+            this.groupBoxBetBar.Controls.Add(this.buttonCancelBet);
+            this.groupBoxBetBar.Location = new System.Drawing.Point(167, 361);
+            this.groupBoxBetBar.Name = "groupBoxBetBar";
+            this.groupBoxBetBar.Size = new System.Drawing.Size(410, 67);
+            this.groupBoxBetBar.TabIndex = 6;
+            this.groupBoxBetBar.TabStop = false;
+            this.groupBoxBetBar.Text = "Введите сумму ставки";
+            this.groupBoxBetBar.Visible = false;
             // 
             // buttonCancelBet
             // 
@@ -474,6 +479,7 @@
             this.buttonCancelBet.TabIndex = 0;
             this.buttonCancelBet.Text = "Отмена";
             this.buttonCancelBet.UseVisualStyleBackColor = true;
+            this.buttonCancelBet.Click += new System.EventHandler(this.buttonCancelBet_Click);
             // 
             // buttonConfirmBet
             // 
@@ -483,6 +489,7 @@
             this.buttonConfirmBet.TabIndex = 0;
             this.buttonConfirmBet.Text = "Подтвердить";
             this.buttonConfirmBet.UseVisualStyleBackColor = true;
+            this.buttonConfirmBet.Click += new System.EventHandler(this.buttonConfirmBet_Click);
             // 
             // numericUpDownBet
             // 
@@ -496,7 +503,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(782, 586);
-            this.Controls.Add(this.groupBetBar);
+            this.Controls.Add(this.groupBoxBetBar);
             this.Controls.Add(this.groupBoxAnteBar);
             this.Controls.Add(this.labelPot);
             this.Controls.Add(this.groupBoxPlayer1);
@@ -525,7 +532,7 @@
             this.groupBoxPlayer1.ResumeLayout(false);
             this.groupBoxPlayer1.PerformLayout();
             this.groupBoxAnteBar.ResumeLayout(false);
-            this.groupBetBar.ResumeLayout(false);
+            this.groupBoxBetBar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -571,7 +578,7 @@
         private System.Windows.Forms.GroupBox groupBoxAnteBar;
         private System.Windows.Forms.Button buttonCancelAnte;
         private System.Windows.Forms.Button buttonConfirmAnte;
-        private System.Windows.Forms.GroupBox groupBetBar;
+        private System.Windows.Forms.GroupBox groupBoxBetBar;
         private System.Windows.Forms.NumericUpDown numericUpDownBet;
         private System.Windows.Forms.Button buttonConfirmBet;
         private System.Windows.Forms.Button buttonCancelBet;

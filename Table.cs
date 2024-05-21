@@ -9,7 +9,6 @@ namespace PokerDraw
         private readonly List<Player> _players = new List<Player>();
         private readonly List<Game> _games = new List<Game>();
         public Deck Deck { get; } = new Deck();
-        public Game CurrentGame;
         public int CurrentPlayerIndex;
         public int DealerIndex { get; private set; } = 0;
         public int Ante { get; private set; }
@@ -41,11 +40,15 @@ namespace PokerDraw
             _players.Add(player);
         }
 
+        public Game GetCurrentGame()
+        {
+            return _games.Last();
+        }
+
         public void AddGame()
         {
             Game game = new Game();
             _games.Add(game);
-            CurrentGame = game;
         }
 
         public void DealCardsToPlayersInPlay()
@@ -84,7 +87,7 @@ namespace PokerDraw
                     CurrentPlayerIndex++;
             }
             else{
-                CurrentGame.IncreaseRound();
+                _games.Last().IncreaseRound();
 
                 if (DealerIndex + 1 == lastPlayerIndex)
                     CurrentPlayerIndex = 0;
@@ -126,8 +129,8 @@ namespace PokerDraw
 
             CurrentPlayerIndex = DealerIndex;
             _players[CurrentPlayerIndex].PlaceBet(Ante);
-            CurrentGame.IncreasePot(Ante);
-            CurrentGame.SetMaxBet(Ante);
+            _games.Last().IncreasePot(Ante);
+            _games.Last().SetMaxBet(Ante);
         }
 
         public void DetermineWinners()
@@ -165,7 +168,7 @@ namespace PokerDraw
             {
                 foreach (Player player in tempWinners)
                 {
-                    CurrentGame.AddWinner(player);
+                    _games.Last().AddWinner(player);
                 }
             }
         }
