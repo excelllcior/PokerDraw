@@ -31,11 +31,22 @@ namespace PokerDraw
     {
         public Rank Rank { get; }
         public Suit Suit { get; }
+        public bool IsFaceUp { get; private set; } = false;
 
         public Card(Rank rank, Suit suit)
         {
             Rank = rank;
             Suit = suit;
+        }
+
+        public void TurnFaceUp()
+        {
+            IsFaceUp = true;
+        }
+
+        public void TurnFaceDown()
+        {
+            IsFaceUp = false;
         }
     }
 }

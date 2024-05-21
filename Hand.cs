@@ -33,6 +33,18 @@ namespace PokerDraw
             return _cards[index];
         }
 
+        public void Show()
+        {
+            foreach (Card card in _cards)
+                card.TurnFaceUp();
+        }
+
+        public void Hide() 
+        {
+            foreach(Card card in _cards)
+                card.TurnFaceDown();
+        }
+
         public void AddCard(Card card)
         {
             if (_cards.Count < 5) 

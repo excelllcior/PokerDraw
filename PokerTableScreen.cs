@@ -25,7 +25,7 @@ namespace PokerDraw
             {
                 _table.AddPlayer(name, 1000);
             }
-
+            // Обработчики нажатия на кнопки для подтверждения/отмены внесения анте
             var anteBarButtons = new List<Button> { buttonConfirmAnte, buttonCancelAnte };
             foreach (Button button in anteBarButtons)
             {
@@ -36,7 +36,7 @@ namespace PokerDraw
                         b.Enabled = false;
                 };
             }
-
+            // Обработчики нажатия на кнопки для совершения хода
             var actionBarButtons = new List<Button> { buttonFold, buttonCheck, buttonCall, buttonConfirmBet };
             foreach (Button button in actionBarButtons)
             {
@@ -45,7 +45,7 @@ namespace PokerDraw
                     buttonNextPlayer.Enabled = true;
                 };
             }
-
+            // Обработчики нажатия на кнопки для подтверждения/отмены внесения ставки
             var betBarButtons = new List<Button> { buttonConfirmBet, buttonCancelBet };
             foreach (Button button in betBarButtons)
             {
@@ -175,17 +175,35 @@ namespace PokerDraw
         private void buttonNextPlayer_Click(object sender, EventArgs e)
         {
             _table.SwitchToNextPlayerInGame();
+
+            Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
+            Game currentGame = _table.GetCurrentGame();
             int round = _table.GetCurrentGame().Round;
 
             if (round == 0)
             {
+                groupBoxAnteBar.Text = "Сделать вступительный взнос?";
                 buttonConfirmAnte.Enabled = true;
                 buttonCancelAnte.Enabled = true;
+
+                if (_table.CurrentDealerPosition == _table.CurrentDealerPosition)
+                {
+                    buttonConfirmAnte.Enabled = false;
+                    buttonCancelAnte.Enabled = false;
+                    groupBoxAnteBar.Text = "Дилер делает вступительный взнос автоматически";
+                    currentPlayer.PlaceBet(_table.Ante);
+                    currentGame.IncreasePot(_table.Ante);
+                    currentGame.SetMaxBet(_table.Ante);
+                }
             }
             else if (round == 1)
             {
                 groupBoxAnteBar.Visible = false;
                 groupBoxActionBar.Visible = true;
+                EnableActionBarButtons();
+            }
+            else if (round == 2)
+            {
                 EnableActionBarButtons();
             }
         }
@@ -263,7 +281,11 @@ namespace PokerDraw
             currentPlayer.PlaceBet(amountToBetOrRaise);
             currentGame.IncreasePot(amountToBetOrRaise);
             currentGame.SetMaxBet(currentPlayer.Bet);
-            UpdateCurrentPlayerMoveLabel($"Колл ({amountToBetOrRaise})");
+
+            if (groupBoxBetBar.Text == "Введите сумму рейза")
+                UpdateCurrentPlayerMoveLabel($"Рейз ({amountToBetOrRaise})");
+            else
+                UpdateCurrentPlayerMoveLabel($"Бет ({amountToBetOrRaise})");
         }
 
         private void buttonCancelBet_Click(object sender, EventArgs e)
