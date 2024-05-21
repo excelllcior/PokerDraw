@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PokerDraw.MVVM.Model
+namespace PokerDraw
 {
     public class Game
     {

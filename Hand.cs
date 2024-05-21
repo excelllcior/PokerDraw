@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PokerDraw.MVVM.Model
+namespace PokerDraw
 {
     public enum Ranking
     {

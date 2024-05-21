@@ -52,12 +52,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\Model\Card.cs" />
-    <Compile Include="MVVM\Model\Deck.cs" />
-    <Compile Include="MVVM\Model\Game.cs" />
-    <Compile Include="MVVM\Model\Hand.cs" />
-    <Compile Include="MVVM\Model\Player.cs" />
-    <Compile Include="MVVM\Model\Table.cs" />
+    <Compile Include="Card.cs" />
+    <Compile Include="Deck.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Hand.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Table.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -85,9 +85,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MVVM\ModelView\" />
-    <Folder Include="MVVM\View\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

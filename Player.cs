@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PokerDraw.MVVM.Model
+namespace PokerDraw
 {
     public class Player
     {
