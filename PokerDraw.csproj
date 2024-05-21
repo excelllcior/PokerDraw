@@ -46,11 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="PokerTableScreen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="PokerTableScreen.Designer.cs">
+      <DependentUpon>PokerTableScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TitleScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TitleScreen.Designer.cs">
+      <DependentUpon>TitleScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Card.cs" />
     <Compile Include="Deck.cs" />
@@ -66,8 +72,11 @@
     <Compile Include="Table.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="PokerTableScreen.resx">
+      <DependentUpon>PokerTableScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TitleScreen.resx">
+      <DependentUpon>TitleScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NameEntryScreen.resx">
       <DependentUpon>NameEntryScreen.cs</DependentUpon>

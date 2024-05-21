@@ -9,9 +9,9 @@ namespace PokerDraw
         private readonly List<Player> _players = new List<Player>();
         private readonly List<Game> _games = new List<Game>();
         public Deck Deck { get; } = new Deck();
-        public Player CurrentPlayer;
         public Game CurrentGame;
-        public int DealerPosition { get; private set; } = 0;
+        public int CurrentPlayerIndex;
+        public int DealerIndex { get; private set; } = 0;
         public int Ante { get; private set; }
 
         public Table(int ante)
@@ -68,56 +68,55 @@ namespace PokerDraw
             foreach (int index in indexes)
             {
                 Card card = Deck.DealTopCard();
-                CurrentPlayer.Hand.ChangeCard(index, card);
+                _players[CurrentPlayerIndex].Hand.ChangeCard(index, card);
             }
         }
 
         public void SwitchToNextPlayerInGame()
         {
-            int currentPlayerIndex = _players.IndexOf(CurrentPlayer);
             int lastPlayerIndex = _players.IndexOf(_players.Last());
-            int currentLastPlayerIndex = DealerPosition - 1;
 
-            if (currentLastPlayerIndex < 0)
-                currentLastPlayerIndex = lastPlayerIndex;
-
-            if (currentPlayerIndex != currentLastPlayerIndex)
+            if (CurrentPlayerIndex != DealerIndex)
             {
-                if (currentPlayerIndex == lastPlayerIndex)
-                    currentPlayerIndex = 0;
+                if (CurrentPlayerIndex == lastPlayerIndex)
+                    CurrentPlayerIndex = 0;
                 else 
-                    currentPlayerIndex++;
-
-                CurrentPlayer = _players[currentPlayerIndex];
+                    CurrentPlayerIndex++;
             }
-            else
-            {
+            else{
                 CurrentGame.IncreaseRound();
-                CurrentPlayer = _players[DealerPosition];
+
+                if (DealerIndex + 1 == lastPlayerIndex)
+                    CurrentPlayerIndex = 0;
+                else
+                    CurrentPlayerIndex = DealerIndex + 1;
             }
 
-            if (!CurrentPlayer.IsInGame)
+            if (!_players[CurrentPlayerIndex].IsInGame)
                 SwitchToNextPlayerInGame();
         }
 
-        public void SwitchToNextDealerInGame()
+        private void SwitchToNextDealerInGame()
         {
-            if (DealerPosition != _players.IndexOf(_players.Last()))
-                DealerPosition++;
+            if (DealerIndex != _players.IndexOf(_players.Last()))
+                DealerIndex++;
             else
-                DealerPosition = 0;
+                DealerIndex = 0;
 
-            if (!_players[DealerPosition].IsInGame) 
+            if (!_players[DealerIndex].IsInGame) 
                 SwitchToNextDealerInGame();
         }
 
         public void StartCurrentGame()
         {
+            Deck.ResetCards();
+
             foreach (Player player in _players)
             {
                 if (player.Bankroll != 0)
                 {
                     player.Hand.Clear();
+                    player.ResetBet();
                     player.ResetIsInGame();
                 }
             }
@@ -125,13 +124,10 @@ namespace PokerDraw
             if (_games.Count > 1)
                 SwitchToNextDealerInGame();
 
-            int currentPlayerIndex = DealerPosition + 1;
-            int lastPlayerIndex = _players.IndexOf(_players.Last());
-            if (currentPlayerIndex > lastPlayerIndex)
-                currentPlayerIndex = 0;
-
-            CurrentPlayer = _players[currentPlayerIndex];
-            Deck.ResetCards();
+            CurrentPlayerIndex = DealerIndex;
+            _players[CurrentPlayerIndex].PlaceBet(Ante);
+            CurrentGame.IncreasePot(Ante);
+            CurrentGame.SetMaxBet(Ante);
         }
 
         public void DetermineWinners()

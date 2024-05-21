@@ -44,7 +44,8 @@ namespace PokerDraw
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-
+            PokerTableScreen form = new PokerTableScreen(_playerNames);
+            form.Show();
         }
     }
 }
