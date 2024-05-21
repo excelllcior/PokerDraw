@@ -46,6 +46,7 @@ namespace PokerDraw
         {
             PokerTableScreen form = new PokerTableScreen(_playerNames);
             form.Show();
+            this.Close();
         }
     }
 }

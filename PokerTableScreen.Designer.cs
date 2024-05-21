@@ -39,9 +39,9 @@
             this.groupBoxActionBar = new System.Windows.Forms.GroupBox();
             this.buttonRaise = new System.Windows.Forms.Button();
             this.buttonCheck = new System.Windows.Forms.Button();
+            this.buttonBet = new System.Windows.Forms.Button();
             this.buttonCall = new System.Windows.Forms.Button();
             this.buttonFold = new System.Windows.Forms.Button();
-            this.buttonBet = new System.Windows.Forms.Button();
             this.groupBoxNext = new System.Windows.Forms.GroupBox();
             this.buttonStartGame = new System.Windows.Forms.Button();
             this.buttonNextPlayer = new System.Windows.Forms.Button();
@@ -66,9 +66,9 @@
             this.buttonCancelAnte = new System.Windows.Forms.Button();
             this.buttonConfirmAnte = new System.Windows.Forms.Button();
             this.groupBoxBetBar = new System.Windows.Forms.GroupBox();
-            this.buttonCancelBet = new System.Windows.Forms.Button();
-            this.buttonConfirmBet = new System.Windows.Forms.Button();
             this.numericUpDownBet = new System.Windows.Forms.NumericUpDown();
+            this.buttonConfirmBet = new System.Windows.Forms.Button();
+            this.buttonCancelBet = new System.Windows.Forms.Button();
             this.groupBoxTest.SuspendLayout();
             this.groupBoxCurrentPlayerInfo.SuspendLayout();
             this.groupBoxActionBar.SuspendLayout();
@@ -177,6 +177,7 @@
             // 
             // buttonRaise
             // 
+            this.buttonRaise.Enabled = false;
             this.buttonRaise.Location = new System.Drawing.Point(330, 19);
             this.buttonRaise.Name = "buttonRaise";
             this.buttonRaise.Size = new System.Drawing.Size(75, 23);
@@ -187,6 +188,7 @@
             // 
             // buttonCheck
             // 
+            this.buttonCheck.Enabled = false;
             this.buttonCheck.Location = new System.Drawing.Point(87, 19);
             this.buttonCheck.Name = "buttonCheck";
             this.buttonCheck.Size = new System.Drawing.Size(75, 23);
@@ -195,9 +197,21 @@
             this.buttonCheck.UseVisualStyleBackColor = true;
             this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
             // 
+            // buttonBet
+            // 
+            this.buttonBet.Enabled = false;
+            this.buttonBet.Location = new System.Drawing.Point(249, 19);
+            this.buttonBet.Name = "buttonBet";
+            this.buttonBet.Size = new System.Drawing.Size(75, 23);
+            this.buttonBet.TabIndex = 4;
+            this.buttonBet.Text = "Бет";
+            this.buttonBet.UseVisualStyleBackColor = true;
+            this.buttonBet.Click += new System.EventHandler(this.buttonBet_Click);
+            // 
             // buttonCall
             // 
-            this.buttonCall.Location = new System.Drawing.Point(168, 16);
+            this.buttonCall.Enabled = false;
+            this.buttonCall.Location = new System.Drawing.Point(168, 20);
             this.buttonCall.Name = "buttonCall";
             this.buttonCall.Size = new System.Drawing.Size(75, 23);
             this.buttonCall.TabIndex = 5;
@@ -207,6 +221,7 @@
             // 
             // buttonFold
             // 
+            this.buttonFold.Enabled = false;
             this.buttonFold.Location = new System.Drawing.Point(6, 19);
             this.buttonFold.Name = "buttonFold";
             this.buttonFold.Size = new System.Drawing.Size(75, 23);
@@ -214,16 +229,6 @@
             this.buttonFold.Text = "Фолд";
             this.buttonFold.UseVisualStyleBackColor = true;
             this.buttonFold.Click += new System.EventHandler(this.buttonFold_Click);
-            // 
-            // buttonBet
-            // 
-            this.buttonBet.Location = new System.Drawing.Point(249, 19);
-            this.buttonBet.Name = "buttonBet";
-            this.buttonBet.Size = new System.Drawing.Size(75, 23);
-            this.buttonBet.TabIndex = 4;
-            this.buttonBet.Text = "Бет";
-            this.buttonBet.UseVisualStyleBackColor = true;
-            this.buttonBet.Click += new System.EventHandler(this.buttonBet_Click);
             // 
             // groupBoxNext
             // 
@@ -249,6 +254,7 @@
             // 
             // buttonNextPlayer
             // 
+            this.buttonNextPlayer.Enabled = false;
             this.buttonNextPlayer.Location = new System.Drawing.Point(8, 20);
             this.buttonNextPlayer.Name = "buttonNextPlayer";
             this.buttonNextPlayer.Size = new System.Drawing.Size(88, 23);
@@ -471,15 +477,12 @@
             this.groupBoxBetBar.Text = "Введите сумму ставки";
             this.groupBoxBetBar.Visible = false;
             // 
-            // buttonCancelBet
+            // numericUpDownBet
             // 
-            this.buttonCancelBet.Location = new System.Drawing.Point(235, 16);
-            this.buttonCancelBet.Name = "buttonCancelBet";
-            this.buttonCancelBet.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancelBet.TabIndex = 0;
-            this.buttonCancelBet.Text = "Отмена";
-            this.buttonCancelBet.UseVisualStyleBackColor = true;
-            this.buttonCancelBet.Click += new System.EventHandler(this.buttonCancelBet_Click);
+            this.numericUpDownBet.Location = new System.Drawing.Point(6, 19);
+            this.numericUpDownBet.Name = "numericUpDownBet";
+            this.numericUpDownBet.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownBet.TabIndex = 1;
             // 
             // buttonConfirmBet
             // 
@@ -491,12 +494,15 @@
             this.buttonConfirmBet.UseVisualStyleBackColor = true;
             this.buttonConfirmBet.Click += new System.EventHandler(this.buttonConfirmBet_Click);
             // 
-            // numericUpDownBet
+            // buttonCancelBet
             // 
-            this.numericUpDownBet.Location = new System.Drawing.Point(6, 19);
-            this.numericUpDownBet.Name = "numericUpDownBet";
-            this.numericUpDownBet.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDownBet.TabIndex = 1;
+            this.buttonCancelBet.Location = new System.Drawing.Point(235, 16);
+            this.buttonCancelBet.Name = "buttonCancelBet";
+            this.buttonCancelBet.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancelBet.TabIndex = 0;
+            this.buttonCancelBet.Text = "Отмена";
+            this.buttonCancelBet.UseVisualStyleBackColor = true;
+            this.buttonCancelBet.Click += new System.EventHandler(this.buttonCancelBet_Click);
             // 
             // PokerTableScreen
             // 
