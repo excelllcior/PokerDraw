@@ -56,12 +56,21 @@
     <Compile Include="Deck.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Hand.cs" />
+    <Compile Include="NameEntryScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NameEntryScreen.Designer.cs">
+      <DependentUpon>NameEntryScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Player.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NameEntryScreen.resx">
+      <DependentUpon>NameEntryScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -50,11 +50,11 @@ namespace PokerDraw
 
         public void DealCardsToPlayersInPlay()
         {
-            foreach (Player player in _players) 
+            for (int i = 0; i < 5; i++)
             {
-                if (player.IsInGame)
+                foreach (Player player in _players) 
                 {
-                    for (int i = 0; i < 5; i++)
+                    if (player.IsInGame)
                     {
                         Card card = Deck.DealTopCard();
                         player.Hand.AddCard(card);
@@ -115,16 +115,23 @@ namespace PokerDraw
         {
             foreach (Player player in _players)
             {
-                if (player.Bankroll != 0 && !player.IsInGame)
+                if (player.Bankroll != 0)
+                {
+                    player.Hand.Clear();
                     player.ResetIsInGame();
+                }
             }
 
             if (_games.Count > 1)
                 SwitchToNextDealerInGame();
 
-            CurrentPlayer = _players[DealerPosition];
+            int currentPlayerIndex = DealerPosition + 1;
+            int lastPlayerIndex = _players.IndexOf(_players.Last());
+            if (currentPlayerIndex > lastPlayerIndex)
+                currentPlayerIndex = 0;
+
+            CurrentPlayer = _players[currentPlayerIndex];
             Deck.ResetCards();
-            Deck.Shuffle();
         }
 
         public void DetermineWinners()

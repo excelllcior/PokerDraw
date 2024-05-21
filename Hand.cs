@@ -41,11 +41,6 @@ namespace PokerDraw
                 throw new Exception("Невозможно добавить карту. В руке не может быть больше 5 карт.");
         }
 
-        public void Clear()
-        {
-            _cards.Clear();
-        }
-
         public void ChangeCard(int index, Card newCard)
         {
             _cards[index] = newCard;
@@ -54,6 +49,11 @@ namespace PokerDraw
         public void SortCards()
         {
             _cards.OrderBy(rank => rank).ToList();
+        }
+
+        public void Clear()
+        {
+            _cards.Clear();
         }
 
         public void Evaluate()
