@@ -62,7 +62,7 @@ namespace PokerDraw
             _games.Add(game);
         }
 
-        public void DealCardsToPlayersInPlay()
+        public void DealCardsToPlayersInGame()
         {
             for (int i = 0; i < 5; i++)
             {

@@ -1,9 +1,12 @@
-﻿using System;
+﻿using PokerDraw.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -78,35 +81,68 @@ namespace PokerDraw
             labelCurrentPlayer.Text = $"Текущий игрок: {_table.GetPlayer(_table.CurrentPlayerPosition).Name}";
             labelPot.Text = $"Банк: {_table.GetCurrentGame().Pot}";
 
-            var playerGroupBoxes = new List<GroupBox>{ 
-                groupBoxPlayer1, groupBoxPlayer2, groupBoxPlayer3, groupBoxPlayer4
+            var playerPanels = new List<Panel>{ 
+                panelPlayer1, panelPlayer2, panelPlayer3, panelPlayer4
             };
 
             for (int i = 0; i < _numberOfPlayers; i++)
             {
                 Player player = _table.GetPlayer(i);
-                playerGroupBoxes[i].Visible = true;
-                playerGroupBoxes[i].Controls[$"labelPlayer{i + 1}Name"].Text = $"Имя: {player.Name}";
-                playerGroupBoxes[i].Controls[$"labelPlayer{i + 1}Bankroll"].Text = $"Баланс: {player.Bankroll}";
+                playerPanels[i].Visible = true;
+                playerPanels[i].Controls[$"labelPlayer{i + 1}Name"].Text = player.Name.ToUpper();
+                playerPanels[i].Controls[$"labelPlayer{i + 1}Bankroll"].Text = $"{player.Bankroll}$".ToUpper();
 
                 if (i == _table.CurrentDealerPosition)
-                    playerGroupBoxes[i].Text = "Дилер";
+                    playerPanels[i].Text = "Дилер";
                 else
-                    playerGroupBoxes[i].Text = "";
+                    playerPanels[i].Text = "";
             }
 
             var currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
 
-            labelCurrentPlayerName.Text = $"Ставка: {currentPlayer.Name}";
-            labelCurrentPlayerBankroll.Text = $"Ставка: {currentPlayer.Bankroll}";
+            labelCurrentPlayerName.Text = $"Имя: {currentPlayer.Name}";
+            labelCurrentPlayerBankroll.Text = $"Баланс: {currentPlayer.Bankroll}";
             labelCurrentPlayerBet.Text = $"Ставка: {currentPlayer.Bet}";
+
+            UpdateCurrentPlayerCardsImages();
+        }
+
+        // Доделать
+        private void UpdateCurrentPlayerCardsImages()
+        {
+            ResourceManager rm = Resources.ResourceManager;
+            var cardImages = new List<PictureBox>{
+                pictureBox1, pictureBox2, pictureBox3, pictureBox4, pictureBox5
+            };
+            var currentPlayerPos = _table.CurrentPlayerPosition;
+            var player = _table.GetPlayer(currentPlayerPos);
+
+            if (player.Hand.GetNumberOfCards() > 0)
+            {
+                cardImages[0].Image = (Bitmap)rm.GetObject($"card_back");
+                for (int i = 0; i < 5; i++)
+                {
+                    Card card = player.Hand.GetCard(i);
+                    if (card.IsFaceUp)
+                        cardImages[i].Image = (Bitmap)rm.GetObject($"{card.Suit}_{card.Rank}".ToLower());
+                    else
+                        cardImages[i].Image = (Bitmap)rm.GetObject($"card_back");
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    cardImages[i].Visible = false;
+                }
+            }
         }
 
         private void UpdateCurrentPlayerMoveLabel(string move)
         {
-            var playerGroupBox = Controls[$"groupBoxPlayer{_table.CurrentPlayerPosition + 1}"];
-            var playerMoveLabel = playerGroupBox.Controls[$"labelPlayer{_table.CurrentPlayerPosition + 1}Move"];
-            playerMoveLabel.Text = $"Ход: {move}";
+            var playerPanel = Controls[$"panelPlayer{_table.CurrentPlayerPosition + 1}"];
+            var playerMoveLabel = playerPanel.Controls[$"labelPlayer{_table.CurrentPlayerPosition + 1}Move"];
+            playerMoveLabel.Text = move.ToUpper();
         }
 
         private void DisableActionBarButtons()
@@ -158,17 +194,14 @@ namespace PokerDraw
         // Загрузка формы
         private void PokerTableScreen_Load(object sender, EventArgs e)
         {
-            groupBoxAnteBar.Visible = true;
-            buttonStartGame.Enabled = false;
-            _table.AddGame();
-            _table.StartCurrentGame();
+            StartGame();
             UpdateUI();
         }
 
         // Кнопка для начала новой игры
         private void buttonStartGame_Click(object sender, EventArgs e)
         {
-
+            StartGame();
         }
 
         // Кнопка для передачи хода/логика наступления раундов
@@ -182,15 +215,15 @@ namespace PokerDraw
 
             if (round == 0)
             {
-                groupBoxAnteBar.Text = "Сделать вступительный взнос?";
+                panelAnte.Text = "Сделать вступительный взнос?";
                 buttonConfirmAnte.Enabled = true;
                 buttonCancelAnte.Enabled = true;
 
-                if (_table.CurrentDealerPosition == _table.CurrentDealerPosition)
+                if (_table.CurrentPlayerPosition == _table.CurrentDealerPosition)
                 {
                     buttonConfirmAnte.Enabled = false;
                     buttonCancelAnte.Enabled = false;
-                    groupBoxAnteBar.Text = "Дилер делает вступительный взнос автоматически";
+                    panelAnte.Text = "Дилер делает вступительный взнос автоматически";
                     currentPlayer.PlaceBet(_table.Ante);
                     currentGame.IncreasePot(_table.Ante);
                     currentGame.SetMaxBet(_table.Ante);
@@ -198,8 +231,8 @@ namespace PokerDraw
             }
             else if (round == 1)
             {
-                groupBoxAnteBar.Visible = false;
-                groupBoxActionBar.Visible = true;
+                panelAnte.Visible = false;
+                panelAction.Visible = true;
                 EnableActionBarButtons();
             }
             else if (round == 2)
@@ -247,8 +280,8 @@ namespace PokerDraw
 
         private void buttonBet_Click(object sender, EventArgs e)
         {
-            groupBoxBetBar.Text = "Введите сумму ставки";
-            groupBoxBetBar.Visible = true;
+            panelBet.Text = "Введите сумму ставки";
+            panelBet.Visible = true;
 
             Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
             int minAmountToBet = 1;
@@ -259,8 +292,8 @@ namespace PokerDraw
 
         private void buttonRaise_Click(object sender, EventArgs e)
         {
-            groupBoxBetBar.Text = "Введите сумму рейза";
-            groupBoxBetBar.Visible = true;
+            panelBet.Text = "Введите сумму рейза";
+            panelBet.Visible = true;
 
             Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
             Game currentGame = _table.GetCurrentGame();
@@ -272,8 +305,8 @@ namespace PokerDraw
 
         private void buttonConfirmBet_Click(object sender, EventArgs e)
         {
-            groupBoxBetBar.Visible = false;
-            groupBoxActionBar.Visible = true;
+            panelBet.Visible = false;
+            panelAction.Visible = true;
 
             Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
             Game currentGame = _table.GetCurrentGame();
@@ -282,7 +315,7 @@ namespace PokerDraw
             currentGame.IncreasePot(amountToBetOrRaise);
             currentGame.SetMaxBet(currentPlayer.Bet);
 
-            if (groupBoxBetBar.Text == "Введите сумму рейза")
+            if (panelBet.Text == "Введите сумму рейза")
                 UpdateCurrentPlayerMoveLabel($"Рейз ({amountToBetOrRaise})");
             else
                 UpdateCurrentPlayerMoveLabel($"Бет ({amountToBetOrRaise})");
@@ -290,8 +323,16 @@ namespace PokerDraw
 
         private void buttonCancelBet_Click(object sender, EventArgs e)
         {
-            groupBoxBetBar.Visible = false;
-            groupBoxActionBar.Visible = true;
+            panelBet.Visible = false;
+            panelAction.Visible = true;
+        }
+
+        public void StartGame()
+        {
+            panelAnte.Visible = true;
+            buttonStartGame.Enabled = false;
+            _table.AddGame();
+            _table.StartCurrentGame();
         }
     }
 }
