@@ -105,15 +105,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\300_player.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\300_dealer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\300_player_folded.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\clubs_ace.png" />
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +262,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\card_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cross.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dealer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\player_panel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\player_panel_folded.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\player_panel_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pot.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

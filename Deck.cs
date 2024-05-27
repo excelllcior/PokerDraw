@@ -7,13 +7,9 @@ namespace PokerDraw
     {
         private readonly List<Card> _cards = new List<Card>();
 
-        public Deck()
-        {
-            ResetCards();
-        }
-
         public void ResetCards()
         {
+            _cards.Clear();
             foreach (Suit suit in Enum.GetValues(typeof(Suit)))
             {
                 foreach (Rank rank in Enum.GetValues(typeof(Rank)))

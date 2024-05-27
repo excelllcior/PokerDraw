@@ -32,9 +32,9 @@ namespace PokerDraw
             var anteBarButtons = new List<Button> { buttonConfirmAnte, buttonCancelAnte };
             foreach (Button button in anteBarButtons)
             {
-                button.Click += (s, e) => buttonNextPlayer.Enabled = true;
                 button.Click += (s, e) =>
                 {
+                    buttonNextPlayer.Enabled = true;
                     foreach (var b in anteBarButtons)
                         b.Enabled = false;
                 };
@@ -44,6 +44,8 @@ namespace PokerDraw
             foreach (Button button in actionBarButtons)
             {
                 button.Click += (s, e) => {
+                    var currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
+                    currentPlayer.Hand.Hide();
                     DisableActionBarButtons();
                     buttonNextPlayer.Enabled = true;
                 };
@@ -54,6 +56,27 @@ namespace PokerDraw
             {
                 button.Click += (s, e) => buttonNextPlayer.Enabled = true;
             }
+            // Отображение PlayerPanelImages
+            var playerPanelImages = new List<PictureBox>{ imagePlayer1, imagePlayer2, imagePlayer3, imagePlayer4 };
+            for (int i = 0; i < playerPanelImages.Count; i++)
+            {
+                PictureBox playerPanelImage = playerPanelImages[i];
+                var dealer = Controls[$"imagePlayer{i + 1}Dealer"];
+                dealer.Parent = playerPanelImage;
+                dealer.Location = new Point(17, 36);
+                var name = Controls[$"labelPlayer{i + 1}Name"];
+                name.Parent = playerPanelImage;
+                name.Location = new Point(17, 0);
+                var bankroll = Controls[$"labelPlayer{i + 1}Bankroll"];
+                bankroll.Parent = playerPanelImage;
+                bankroll.Location = new Point(17, 24);
+                var move = Controls[$"labelPlayer{i + 1}Move"];
+                move.Parent = playerPanelImage;
+                move.Location = new Point(17, 50);
+            }
+
+            label1.Parent = imageBank;
+            label2.Parent = imageBank;
         }
 
         private void SubscribeOnClickRecursively(Control c)
@@ -81,21 +104,23 @@ namespace PokerDraw
             labelCurrentPlayer.Text = $"Текущий игрок: {_table.GetPlayer(_table.CurrentPlayerPosition).Name}";
             labelPot.Text = $"Банк: {_table.GetCurrentGame().Pot}";
 
-            var playerPanels = new List<Panel>{ 
-                panelPlayer1, panelPlayer2, panelPlayer3, panelPlayer4
+            var playerPanelImages = new List<PictureBox>{ 
+                imagePlayer1, imagePlayer2, imagePlayer3, imagePlayer4
             };
 
             for (int i = 0; i < _numberOfPlayers; i++)
             {
                 Player player = _table.GetPlayer(i);
-                playerPanels[i].Visible = true;
-                playerPanels[i].Controls[$"labelPlayer{i + 1}Name"].Text = player.Name.ToUpper();
-                playerPanels[i].Controls[$"labelPlayer{i + 1}Bankroll"].Text = $"{player.Bankroll}$".ToUpper();
+                PictureBox playerPanelImage = playerPanelImages[i];
+                playerPanelImage.Visible = true;
+                playerPanelImage.Controls[$"labelPlayer{i + 1}Name"].Text = player.Name.ToUpper();
+                playerPanelImage.Controls[$"labelPlayer{i + 1}Bankroll"].Text = $"{player.Bankroll}$".ToUpper();
+                PictureBox dealerImage = (PictureBox)playerPanelImage.Controls[$"imagePlayer{i + 1}Dealer"];
 
                 if (i == _table.CurrentDealerPosition)
-                    playerPanels[i].Text = "Дилер";
+                    dealerImage.Visible = true;
                 else
-                    playerPanels[i].Text = "";
+                    dealerImage.Visible = false;
             }
 
             var currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
@@ -119,14 +144,14 @@ namespace PokerDraw
 
             if (player.Hand.GetNumberOfCards() > 0)
             {
-                cardImages[0].Image = (Bitmap)rm.GetObject($"card_back");
                 for (int i = 0; i < 5; i++)
                 {
+                    cardImages[i].Visible = true;
                     Card card = player.Hand.GetCard(i);
                     if (card.IsFaceUp)
                         cardImages[i].Image = (Bitmap)rm.GetObject($"{card.Suit}_{card.Rank}".ToLower());
                     else
-                        cardImages[i].Image = (Bitmap)rm.GetObject($"card_back");
+                        cardImages[i].Image = (Bitmap)rm.GetObject("card_back");
                 }
             }
             else
@@ -140,8 +165,8 @@ namespace PokerDraw
 
         private void UpdateCurrentPlayerMoveLabel(string move)
         {
-            var playerPanel = Controls[$"panelPlayer{_table.CurrentPlayerPosition + 1}"];
-            var playerMoveLabel = playerPanel.Controls[$"labelPlayer{_table.CurrentPlayerPosition + 1}Move"];
+            PictureBox playerPanelImage = (PictureBox)Controls[$"imagePlayer{_table.CurrentPlayerPosition + 1}"];
+            var playerMoveLabel = playerPanelImage.Controls[$"labelPlayer{_table.CurrentPlayerPosition + 1}Move"];
             playerMoveLabel.Text = move.ToUpper();
         }
 
@@ -207,6 +232,7 @@ namespace PokerDraw
         // Кнопка для передачи хода/логика наступления раундов
         private void buttonNextPlayer_Click(object sender, EventArgs e)
         {
+            buttonNextPlayer.Enabled = false;
             _table.SwitchToNextPlayerInGame();
 
             Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
@@ -221,22 +247,28 @@ namespace PokerDraw
 
                 if (_table.CurrentPlayerPosition == _table.CurrentDealerPosition)
                 {
+                    buttonNextPlayer.Enabled = true;
                     buttonConfirmAnte.Enabled = false;
                     buttonCancelAnte.Enabled = false;
                     panelAnte.Text = "Дилер делает вступительный взнос автоматически";
                     currentPlayer.PlaceBet(_table.Ante);
                     currentGame.IncreasePot(_table.Ante);
                     currentGame.SetMaxBet(_table.Ante);
+                    // Тасовка и раздача карт
+                    _table.Deck.Shuffle();
+                    _table.DealCardsToPlayersInGame();
                 }
             }
             else if (round == 1)
             {
+                currentPlayer.Hand.Show();
                 panelAnte.Visible = false;
                 panelAction.Visible = true;
                 EnableActionBarButtons();
             }
             else if (round == 2)
             {
+                currentPlayer.Hand.Show();
                 EnableActionBarButtons();
             }
         }

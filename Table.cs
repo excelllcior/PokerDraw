@@ -125,7 +125,6 @@ namespace PokerDraw
         public void StartCurrentGame()
         {
             Deck.ResetCards();
-
             foreach (Player player in _players)
             {
                 if (player.Bankroll != 0)
