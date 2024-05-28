@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -15,356 +16,523 @@ namespace PokerDraw
 {
     public partial class PokerTableScreen : Form
     {
-        private readonly Table _table = new Table(10);
-        private readonly int _numberOfPlayers;
+        private readonly Table Table = new Table(10);
+        private readonly int NumberOfPlayers;
 
         public PokerTableScreen(List<string> playerNames)
         {
             InitializeComponent();
-            SubscribeOnClickRecursively(this);
-            _numberOfPlayers = playerNames.Count;
+            CreateUI();
 
-            foreach (string name in playerNames) 
+            NumberOfPlayers = playerNames.Count;
+            foreach (string name in playerNames)
             {
-                _table.AddPlayer(name, 1000);
+                Table.AddPlayer(name, 1000);
             }
-            // Обработчики нажатия на кнопки для подтверждения/отмены внесения анте
-            var anteBarButtons = new List<Button> { buttonConfirmAnte, buttonCancelAnte };
-            foreach (Button button in anteBarButtons)
+            var buttons = new List<Button> {
+                AnteCancelButton, AnteConfirmButton, DealCardsButton, NextButton, HideCardsButton,
+                FoldButton, CheckButton, CallButton, BetButton, RaiseButton, BetCancelButton, BetConfirmButton,
+                ChangeCard1Button, ChangeCard2Button, ChangeCard3Button, ChangeCard4Button, ChangeCard5Button
+            };
+            foreach (Button button in buttons)
             {
-                button.Click += (s, e) =>
-                {
-                    buttonNextPlayer.Enabled = true;
-                    foreach (var b in anteBarButtons)
-                        b.Enabled = false;
-                };
+                button.Click += UpdateUIOnClick;
             }
-            // Обработчики нажатия на кнопки для совершения хода
-            var actionBarButtons = new List<Button> { buttonFold, buttonCheck, buttonCall, buttonConfirmBet };
-            foreach (Button button in actionBarButtons)
-            {
-                button.Click += (s, e) => {
-                    var currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
-                    currentPlayer.Hand.Hide();
-                    DisableActionBarButtons();
-                    buttonNextPlayer.Enabled = true;
-                };
-            }
-            // Обработчики нажатия на кнопки для подтверждения/отмены внесения ставки
-            var betBarButtons = new List<Button> { buttonConfirmBet, buttonCancelBet };
-            foreach (Button button in betBarButtons)
-            {
-                button.Click += (s, e) => buttonNextPlayer.Enabled = true;
-            }
-            // Отображение PlayerPanelImages
-            var playerPanelImages = new List<PictureBox>{ imagePlayer1, imagePlayer2, imagePlayer3, imagePlayer4 };
-            for (int i = 0; i < playerPanelImages.Count; i++)
-            {
-                PictureBox playerPanelImage = playerPanelImages[i];
-                var dealer = Controls[$"imagePlayer{i + 1}Dealer"];
-                dealer.Parent = playerPanelImage;
-                dealer.Location = new Point(17, 36);
-                var name = Controls[$"labelPlayer{i + 1}Name"];
-                name.Parent = playerPanelImage;
-                name.Location = new Point(17, 0);
-                var bankroll = Controls[$"labelPlayer{i + 1}Bankroll"];
-                bankroll.Parent = playerPanelImage;
-                bankroll.Location = new Point(17, 24);
-                var move = Controls[$"labelPlayer{i + 1}Move"];
-                move.Parent = playerPanelImage;
-                move.Location = new Point(17, 50);
-            }
-
-            label1.Parent = imageBank;
-            label2.Parent = imageBank;
         }
 
-        private void SubscribeOnClickRecursively(Control c)
+        private void CreateUI()
         {
-            if (c is Button)
+            int formWidth = BackgroundImage.Width;
+            // Кнопка - Раздать карты
+            DealCardsButton.Parent = BackgroundImage;
+            DealCardsButton.Location = new Point((formWidth - DealCardsButton.Width) / 2, 612);
+            // Кнопка - Скрыть карты
+            HideCardsButton.Parent = BackgroundImage;
+            HideCardsButton.Location = new Point(formWidth - HideCardsButton.Width - 20, 612);
+            // Кнопка - Передать ход
+            NextButton.Parent = BackgroundImage;
+            NextButton.Location = new Point(formWidth - NextButton.Width - 20, 612);
+            // Панель - Выбор хода
+            MoveSelectionPanel.Parent = BackgroundImage;
+            MoveSelectionPanel.Location = new Point((formWidth - MoveSelectionPanel.Width) / 2, 610);
+            // Панель - Анте
+            AntePanel.Parent = BackgroundImage;
+            AntePanel.Location = new Point((formWidth - AntePanel.Width) / 2, 610);
+            // Панель - Замена карт
+            ChangeCardsPanel.Parent = BackgroundImage;
+            ChangeCardsPanel.Location = new Point((formWidth - ChangeCardsPanel.Width) / 2, 610);
+            // Лейблы - Банк игры
+            PotLabel.Parent = PotImage;
+            PotLabel.Location = new Point(0, 0);
+            PotValueLabel.Parent = PotImage;
+            PotValueLabel.Location = new Point(0, 26);
+            // Картинка - Банк игры
+            PotImage.Parent = BackgroundImage;
+            PotImage.Location = new Point((formWidth - PotImage.Width) / 2, 360);
+            // Лейблы - Раунд
+            RoundNameLabel.Parent = RoundImage;
+            RoundNameLabel.Location = new Point(0, 0);
+            RoundInfoLabel.Parent = RoundImage;
+            RoundInfoLabel.Location = new Point(0, 26);
+            // Картинка - Раунд
+            RoundImage.Parent = BackgroundImage;
+            RoundImage.Location = new Point((formWidth - RoundImage.Width) / 2, 260);
+            // Лейблы - Панель игрока
+            var playerImages = new List<PictureBox> {
+                Player1Image, Player2Image, Player3Image, Player4Image
+            };
+            var playerNameLables = new List<Label> {
+                Player1NameLabel, Player2NameLabel, Player3NameLabel, Player4NameLabel
+            };
+            var playerBankrollLables = new List<Label> {
+                Player1BankrollLabel, Player2BankrollLabel, Player3BankrollLabel, Player4BankrollLabel
+            };
+            var playerMoveLables = new List<Label> {
+                Player1MoveLabel, Player2MoveLabel, Player3MoveLabel, Player4MoveLabel
+            };
+            var playerDealerImages = new List<PictureBox> {
+                Player1DealerImage, Player2DealerImage, Player3DealerImage, Player4DealerImage
+            };
+            for (int i = 0; i < 4; i++)
             {
-                c.Click += UpdateUIOnClick;
+                playerDealerImages[i].Parent = playerImages[i];
+                playerDealerImages[i].Location = new Point(19, 36);
+                playerNameLables[i].Parent = playerImages[i];
+                playerNameLables[i].Location = new Point(0, 0);
+                playerBankrollLables[i].Parent = playerImages[i];
+                playerBankrollLables[i].Location = new Point(0, 24);
+                playerMoveLables[i].Parent = playerImages[i];
+                playerMoveLables[i].Location = new Point(0, 50);
             }
-            foreach (Control child in c.Controls)
+            Player1Image.Parent = BackgroundImage;
+            Player1Image.Location = new Point(formWidth - Player1Image.Width - 180, 320);
+            Player2Image.Parent = BackgroundImage;
+            Player2Image.Location = new Point(formWidth - Player2Image.Width - 340, 485);
+            Player3Image.Parent = BackgroundImage;
+            Player3Image.Location = new Point(340, 485);
+            Player4Image.Parent = BackgroundImage;
+            Player4Image.Location = new Point(180, 320);
+            // Картинки - Карты игроков
+            var player1CardImages = new List<PictureBox> {
+                Player1Card1Image, Player1Card2Image, Player1Card3Image, Player1Card4Image, Player1Card5Image
+            };
+            for (int i = 4; i >= 0; i--)
             {
-                SubscribeOnClickRecursively(child);
+                player1CardImages[i].Parent = BackgroundImage;
+                player1CardImages[i].Location = new Point(870 + i * 30, 258);
+            }
+            var player2CardImages = new List<PictureBox> {
+                Player2Card1Image, Player2Card2Image, Player2Card3Image, Player2Card4Image, Player2Card5Image
+            };
+            for (int i = 4; i >= 0; i--)
+            {
+                player2CardImages[i].Parent = BackgroundImage;
+                player2CardImages[i].Location = new Point(710 + i * 30, 420);
+            }
+            var player3CardImages = new List<PictureBox> {
+                Player3Card1Image, Player3Card2Image, Player3Card3Image, Player3Card4Image, Player3Card5Image
+            };
+            for (int i = 4; i >= 0; i--)
+            {
+                player3CardImages[i].Parent = BackgroundImage;
+                player3CardImages[i].Location = new Point(360 + i * 30, 420);
+            }
+            var player4CardImages = new List<PictureBox> {
+                Player4Card1Image, Player4Card2Image, Player4Card3Image, Player4Card4Image, Player4Card5Image
+            };
+            for (int i = 4; i >= 0; i--)
+            {
+                player4CardImages[i].Parent = BackgroundImage;
+                player4CardImages[i].Location = new Point(200 + i * 30, 258);
             }
         }
 
-        // Методы для обновления элементов интерфейса
         private void UpdateUIOnClick(object sender, EventArgs e)
         {
-            UpdateUI();
+            UpdatePlayerAndTableImages();
+            UpdateButtons();
         }
 
-        private void UpdateUI()
+        private void UpdatePlayerAndTableImages()
         {
-            labelRound.Text = $"Раунд: {_table.GetCurrentGame().Round}";
-            labelCurrentDealer.Text = $"Индекс дилера: {_table.CurrentDealerPosition}";
-            labelCurrentPlayer.Text = $"Текущий игрок: {_table.GetPlayer(_table.CurrentPlayerPosition).Name}";
-            labelPot.Text = $"Банк: {_table.GetCurrentGame().Pot}";
-
-            var playerPanelImages = new List<PictureBox>{ 
-                imagePlayer1, imagePlayer2, imagePlayer3, imagePlayer4
+            ResourceManager rm = Resources.ResourceManager;
+            PotValueLabel.Text = $"${Table.GetCurrentGame().Pot}";
+            var playerImages = new List<PictureBox>{
+                Player1Image, Player2Image, Player3Image, Player4Image
             };
-
-            for (int i = 0; i < _numberOfPlayers; i++)
+            for (int i = 0; i < NumberOfPlayers; i++)
             {
-                Player player = _table.GetPlayer(i);
-                PictureBox playerPanelImage = playerPanelImages[i];
-                playerPanelImage.Visible = true;
-                playerPanelImage.Controls[$"labelPlayer{i + 1}Name"].Text = player.Name.ToUpper();
-                playerPanelImage.Controls[$"labelPlayer{i + 1}Bankroll"].Text = $"{player.Bankroll}$".ToUpper();
-                PictureBox dealerImage = (PictureBox)playerPanelImage.Controls[$"imagePlayer{i + 1}Dealer"];
+                Player player = Table.GetPlayer(i);
+                PictureBox playerImage = playerImages[i];
+                playerImage.Visible = true;
+                playerImage.Controls[$"Player{i + 1}NameLabel"].Text = player.Name.ToUpper();
+                playerImage.Controls[$"Player{i + 1}BankrollLabel"].Text = $"{player.Bankroll}$".ToUpper();
+                PictureBox dealerImage = (PictureBox)playerImage.Controls[$"Player{i + 1}DealerImage"];
 
-                if (i == _table.CurrentDealerPosition)
+                if (player.IsInGame)
+                {
+                    if (i == Table.CurrentPlayerPosition)
+                        playerImage.Image = (Bitmap)rm.GetObject("player_panel_selected");
+                    else
+                        playerImage.Image = (Bitmap)rm.GetObject("player_panel");
+                }
+                else
+                    playerImage.Image = (Bitmap)rm.GetObject("player_panel_folded");
+
+                if (i == Table.CurrentDealerPosition)
                     dealerImage.Visible = true;
                 else
                     dealerImage.Visible = false;
             }
-
-            var currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
-
-            labelCurrentPlayerName.Text = $"Имя: {currentPlayer.Name}";
-            labelCurrentPlayerBankroll.Text = $"Баланс: {currentPlayer.Bankroll}";
-            labelCurrentPlayerBet.Text = $"Ставка: {currentPlayer.Bet}";
-
-            UpdateCurrentPlayerCardsImages();
+            var player1CardImages = new List<PictureBox> {
+                Player1Card1Image, Player1Card2Image, Player1Card3Image, Player1Card4Image, Player1Card5Image
+            };
+            UpdatePlayerCardsImages(player1CardImages, 0);
+            var player2CardImages = new List<PictureBox> {
+                Player2Card1Image, Player2Card2Image, Player2Card3Image, Player2Card4Image, Player2Card5Image
+            };
+            UpdatePlayerCardsImages(player2CardImages, 1);
+            var player3CardImages = new List<PictureBox> {
+                Player3Card1Image, Player3Card2Image, Player3Card3Image, Player3Card4Image, Player3Card5Image
+            };
+            UpdatePlayerCardsImages(player3CardImages, 2);
+            var player4CardImages = new List<PictureBox> {
+                Player4Card1Image, Player4Card2Image, Player4Card3Image, Player4Card4Image, Player4Card5Image
+            };
+            UpdatePlayerCardsImages(player4CardImages, 3);
         }
 
-        // Доделать
-        private void UpdateCurrentPlayerCardsImages()
+        private void UpdatePlayerCardsImages(List<PictureBox> playerCardImages, int playerPosition)
         {
             ResourceManager rm = Resources.ResourceManager;
-            var cardImages = new List<PictureBox>{
-                pictureBox1, pictureBox2, pictureBox3, pictureBox4, pictureBox5
-            };
-            var currentPlayerPos = _table.CurrentPlayerPosition;
-            var player = _table.GetPlayer(currentPlayerPos);
-
-            if (player.Hand.GetNumberOfCards() > 0)
+            for (int i = 4; i >= 0; i--)
             {
-                for (int i = 0; i < 5; i++)
+                Player player = Table.GetPlayer(playerPosition);
+                if (player.Hand.GetNumberOfCards() > 0)
                 {
-                    cardImages[i].Visible = true;
+                    playerCardImages[i].Visible = true;
                     Card card = player.Hand.GetCard(i);
                     if (card.IsFaceUp)
-                        cardImages[i].Image = (Bitmap)rm.GetObject($"{card.Suit}_{card.Rank}".ToLower());
+                        playerCardImages[i].Image = (Bitmap)rm.GetObject($"{card.Suit}_{card.Rank}".ToLower());
                     else
-                        cardImages[i].Image = (Bitmap)rm.GetObject("card_back");
+                        playerCardImages[i].Image = (Bitmap)rm.GetObject("card_back");
                 }
+                else
+                    playerCardImages[i].Visible = false;
             }
-            else
+        }
+
+        private void UpdateButtons()
+        {
+            ResourceManager rm = Resources.ResourceManager;
+            var buttons = new List<Button> {
+                AnteCancelButton, AnteConfirmButton, DealCardsButton, NextButton,
+                FoldButton, CheckButton, CallButton, BetButton, RaiseButton, ChangeCard1Button,
+                ChangeCard2Button, ChangeCard3Button, ChangeCard4Button, ChangeCard5Button
+            };
+            foreach (var button in buttons)
             {
-                for (int i = 0; i < 5; i++)
-                {
-                    cardImages[i].Visible = false;
-                }
+                if (button.Enabled)
+                    button.BackgroundImage = (Bitmap)rm.GetObject("button");
+                else
+                    button.BackgroundImage = (Bitmap)rm.GetObject("button_disabled");
             }
         }
 
         private void UpdateCurrentPlayerMoveLabel(string move)
         {
-            PictureBox playerPanelImage = (PictureBox)Controls[$"imagePlayer{_table.CurrentPlayerPosition + 1}"];
-            var playerMoveLabel = playerPanelImage.Controls[$"labelPlayer{_table.CurrentPlayerPosition + 1}Move"];
+            var playerImage = BackgroundImage.Controls[$"Player{Table.CurrentPlayerPosition + 1}Image"];
+            var playerMoveLabel = playerImage.Controls[$"Player{Table.CurrentPlayerPosition + 1}MoveLabel"];
             playerMoveLabel.Text = move.ToUpper();
         }
 
-        private void DisableActionBarButtons()
+        private void UpdateUIOnGameStart()
         {
-            buttonFold.Enabled = false;
-            buttonCheck.Enabled = false;
-            buttonCall.Enabled = false;
-            buttonBet.Enabled = false;
-            buttonRaise.Enabled = false;
+            AntePanel.Visible = true;
+            Table.AddGame();
+            Table.StartCurrentGame();
+            Game currentGame = Table.GetCurrentGame();
+            Player dealer = Table.GetPlayer(Table.CurrentDealerPosition);
+            var dealerImage = BackgroundImage.Controls[$"Player{Table.CurrentDealerPosition + 1}Image"];
+            var dealerMoveLabel = dealerImage.Controls[$"Player{Table.CurrentDealerPosition + 1}MoveLabel"];
+            dealerMoveLabel.Text = "В игре".ToUpper();
+            dealer.PlaceBet(Table.Ante);
+            currentGame.IncreasePot(Table.Ante);
+            currentGame.SetMaxBet(Table.Ante);
+            UpdatePlayerAndTableImages();
+            UpdateButtons();
         }
 
-        private void EnableActionBarButtons()
-        {
-            Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
-            Game currentGame = _table.GetCurrentGame();
-
-            buttonFold.Enabled = true;
-
-            if (currentPlayer.Bet == currentGame.Bet)
-            {
-                buttonCheck.Enabled = true;
-            }
-
-            if (currentGame.Bet == _table.Ante && currentPlayer.Bankroll > 0
-                && (currentGame.Round != 2 || _table.CurrentPlayerPosition == _table.CurrentDealerPosition)
-                && (currentGame.Round != 5 || _table.CurrentPlayerPosition == _table.CurrentDealerPosition))
-            {
-                buttonBet.Enabled = true;
-            }
-
-            buttonCall.Text = "Колл";
-            int amountToCall = currentGame.Bet - currentPlayer.Bet;
-            if (currentPlayer.Bet < currentGame.Bet && currentPlayer.Bankroll >= amountToCall)
-            {
-                buttonCall.Text = $"Колл ({amountToCall})";
-                buttonCall.Enabled = true;
-            }
-
-            int amountToRaise = amountToCall + 1;
-            if (currentGame.Bet != _table.Ante && currentPlayer.Bet <= currentGame.Bet
-                && currentPlayer.Bankroll > amountToRaise
-                && (currentGame.Round != 2 || _table.CurrentPlayerPosition == _table.CurrentDealerPosition)
-                && (currentGame.Round != 5 || _table.CurrentPlayerPosition == _table.CurrentDealerPosition))
-            {
-                buttonRaise.Enabled = true;
-            }
-        }
-
-        // Загрузка формы
         private void PokerTableScreen_Load(object sender, EventArgs e)
         {
-            StartGame();
-            UpdateUI();
+            UpdateUIOnGameStart();
         }
 
-        // Кнопка для начала новой игры
-        private void buttonStartGame_Click(object sender, EventArgs e)
+        private void DealCardsButton_Click(object sender, EventArgs e)
         {
-            StartGame();
+            Table.Deck.Shuffle();
+            Table.DealCardsToPlayersInGame();
+            DealCardsButton.Visible = false;
         }
 
-        // Кнопка для передачи хода/логика наступления раундов
-        private void buttonNextPlayer_Click(object sender, EventArgs e)
+        private void NextButton_Click(object sender, EventArgs e)
         {
-            buttonNextPlayer.Enabled = false;
-            _table.SwitchToNextPlayerInGame();
+            NextButton.Enabled = false;
+            Table.SwitchToNextPlayerInGame();
 
-            Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
-            Game currentGame = _table.GetCurrentGame();
-            int round = _table.GetCurrentGame().Round;
+            Player currentPlayer = Table.GetPlayer(Table.CurrentPlayerPosition);
+            int round = Table.GetCurrentGame().Round;
 
             if (round == 0)
             {
-                panelAnte.Text = "Сделать вступительный взнос?";
-                buttonConfirmAnte.Enabled = true;
-                buttonCancelAnte.Enabled = true;
-
-                if (_table.CurrentPlayerPosition == _table.CurrentDealerPosition)
+                AnteConfirmButton.Enabled = true;
+                AnteCancelButton.Enabled = true;
+                if (Table.CurrentPlayerPosition == Table.CurrentDealerPosition)
                 {
-                    buttonNextPlayer.Enabled = true;
-                    buttonConfirmAnte.Enabled = false;
-                    buttonCancelAnte.Enabled = false;
-                    panelAnte.Text = "Дилер делает вступительный взнос автоматически";
-                    currentPlayer.PlaceBet(_table.Ante);
-                    currentGame.IncreasePot(_table.Ante);
-                    currentGame.SetMaxBet(_table.Ante);
-                    // Тасовка и раздача карт
-                    _table.Deck.Shuffle();
-                    _table.DealCardsToPlayersInGame();
+                    AntePanel.Visible = false;
+                    DealCardsButton.Visible = true;
+                    NextButton.Enabled = true;
                 }
             }
             else if (round == 1)
             {
                 currentPlayer.Hand.Show();
-                panelAnte.Visible = false;
-                panelAction.Visible = true;
-                EnableActionBarButtons();
+                MoveSelectionPanel.Visible = true;
+                EnableMovePanelButtons();
             }
             else if (round == 2)
             {
                 currentPlayer.Hand.Show();
-                EnableActionBarButtons();
+                EnableMovePanelButtons();
+            }
+            else if (round == 3)
+            {
+                currentPlayer.Hand.Show();
+                HideCardsButton.Visible = true;
+                EnableChangeCardPanelButtons();
+                if (MoveSelectionPanel.Visible)
+                    MoveSelectionPanel.Visible = false;
+                if (!ChangeCardsPanel.Visible)
+                    ChangeCardsPanel.Visible = true;
+            }
+            else if (round == 4)
+            {
+                MoveSelectionPanel.Visible = true;
+                currentPlayer.Hand.Show();
+                EnableMovePanelButtons();
             }
         }
 
-        // Кнопки для подтверждения/отмены внесения анте
-        private void buttonConfirmAnte_Click(object sender, EventArgs e)
+        private void AnteConfirmButton_Click(object sender, EventArgs e)
         {
-            Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
-            Game currentGame = _table.GetCurrentGame();
-            currentPlayer.PlaceBet(_table.Ante);
-            currentGame.IncreasePot(_table.Ante);
-            currentGame.SetMaxBet(_table.Ante);
+            Player currentPlayer = Table.GetPlayer(Table.CurrentPlayerPosition);
+            Game currentGame = Table.GetCurrentGame();
+            currentPlayer.PlaceBet(Table.Ante);
+            currentGame.IncreasePot(Table.Ante);
+            currentGame.SetMaxBet(Table.Ante);
+            UpdateCurrentPlayerMoveLabel("В игре");
+            AnteConfirmButton.Enabled = false;
+            AnteCancelButton.Enabled = false;
+            NextButton.Enabled = true;
         }
 
-        private void buttonCancelAnte_Click(object sender, EventArgs e)
+        private void AnteCancelButton_Click(object sender, EventArgs e)
         {
-            _table.GetPlayer(_table.CurrentPlayerPosition).Fold();
+            Table.GetPlayer(Table.CurrentPlayerPosition).Fold();
+            UpdateCurrentPlayerMoveLabel("Не в игре");
+            AnteConfirmButton.Enabled = false;
+            AnteCancelButton.Enabled = false;
+            NextButton.Enabled = true;
         }
 
-        // Кнопки для совершения хода
-        private void buttonFold_Click(object sender, EventArgs e)
+        private void EnableMovePanelButtons()
         {
-            _table.GetPlayer(_table.CurrentPlayerPosition).Fold();
+            DisableMovePanelButtons();
+            Player currentPlayer = Table.GetPlayer(Table.CurrentPlayerPosition);
+            Game currentGame = Table.GetCurrentGame();
+
+            FoldButton.Enabled = true;
+
+            if (currentPlayer.Bet == currentGame.Bet)
+            {
+                CheckButton.Enabled = true;
+            }
+
+            if (currentGame.Bet == Table.Ante && currentPlayer.Bankroll > 0
+                && (currentGame.Round != 2) && (currentGame.Round != 5))
+            {
+                BetButton.Enabled = true;
+            }
+
+            CallButton.Text = "КОЛЛ";
+            int amountToCall = currentGame.Bet - currentPlayer.Bet;
+            if (currentPlayer.Bet < currentGame.Bet && currentPlayer.Bankroll >= amountToCall)
+            {
+                CallButton.Text = $"КОЛЛ ${amountToCall}";
+                CallButton.Enabled = true;
+            }
+
+            int amountToRaise = amountToCall + 1;
+            if (currentGame.Bet != Table.Ante && currentPlayer.Bet <= currentGame.Bet
+                && currentPlayer.Bankroll > amountToRaise
+                && (currentGame.Round != 2) && (currentGame.Round != 5))
+            {
+                RaiseButton.Enabled = true;
+            }
+        }
+
+        private void DisableMovePanelButtons()
+        {
+            FoldButton.Enabled = false;
+            CheckButton.Enabled = false;
+            CallButton.Enabled = false;
+            BetButton.Enabled = false;
+            RaiseButton.Enabled = false;
+        }
+
+        private void FoldButton_Click(object sender, EventArgs e)
+        {
+            Table.GetPlayer(Table.CurrentPlayerPosition).Fold();
             UpdateCurrentPlayerMoveLabel("Фолд");
+            Table.GetPlayer(Table.CurrentPlayerPosition).Hand.Hide();
+            DisableMovePanelButtons();
+            NextButton.Enabled = true;
         }
 
-        private void buttonCheck_Click(object sender, EventArgs e)
+        private void CheckButton_Click(object sender, EventArgs e)
         {
             UpdateCurrentPlayerMoveLabel("Чек");
+            Table.GetPlayer(Table.CurrentPlayerPosition).Hand.Hide();
+            DisableMovePanelButtons();
+            NextButton.Enabled = true;
         }
 
-        private void buttonCall_Click(object sender, EventArgs e)
+        private void CallButton_Click(object sender, EventArgs e)
         {
-            Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
-            Game currentGame = _table.GetCurrentGame();
-            int amountToCall = _table.GetCurrentGame().Bet - currentPlayer.Bet;
+            Player currentPlayer = Table.GetPlayer(Table.CurrentPlayerPosition);
+            Game currentGame = Table.GetCurrentGame();
+            int amountToCall = Table.GetCurrentGame().Bet - currentPlayer.Bet;
             currentPlayer.PlaceBet(amountToCall);
             currentGame.IncreasePot(amountToCall);
-            UpdateCurrentPlayerMoveLabel($"Колл ({amountToCall})");
+            UpdateCurrentPlayerMoveLabel($"Колл ${amountToCall}");
+            Table.GetPlayer(Table.CurrentPlayerPosition).Hand.Hide();
+            DisableMovePanelButtons();
+            NextButton.Enabled = true;
         }
 
-        private void buttonBet_Click(object sender, EventArgs e)
+        private void BetButton_Click(object sender, EventArgs e)
         {
-            panelBet.Text = "Введите сумму ставки";
-            panelBet.Visible = true;
-
-            Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
+            MoveSelectionPanel.Visible = false;
+            BetPanel.Visible = true;
+            Player currentPlayer = Table.GetPlayer(Table.CurrentPlayerPosition);
             int minAmountToBet = 1;
             numericUpDownBet.Minimum = minAmountToBet;
             numericUpDownBet.Value = minAmountToBet;
             numericUpDownBet.Maximum = currentPlayer.Bankroll;
         }
 
-        private void buttonRaise_Click(object sender, EventArgs e)
+        private void RaiseButton_Click(object sender, EventArgs e)
         {
-            panelBet.Text = "Введите сумму рейза";
-            panelBet.Visible = true;
-
-            Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
-            Game currentGame = _table.GetCurrentGame();
+            MoveSelectionPanel.Visible = false;
+            BetPanel.Visible = true;
+            Player currentPlayer = Table.GetPlayer(Table.CurrentPlayerPosition);
+            Game currentGame = Table.GetCurrentGame();
             int minAmountToRaise = currentGame.Bet - currentPlayer.Bet + 1;
             numericUpDownBet.Minimum = minAmountToRaise;
             numericUpDownBet.Value = minAmountToRaise;
             numericUpDownBet.Maximum = currentPlayer.Bankroll;
         }
 
-        private void buttonConfirmBet_Click(object sender, EventArgs e)
+        private void BetConfirmButton_Click(object sender, EventArgs e)
         {
-            panelBet.Visible = false;
-            panelAction.Visible = true;
-
-            Player currentPlayer = _table.GetPlayer(_table.CurrentPlayerPosition);
-            Game currentGame = _table.GetCurrentGame();
+            BetPanel.Visible = false;
+            MoveSelectionPanel.Visible = true;
+            Player currentPlayer = Table.GetPlayer(Table.CurrentPlayerPosition);
+            Game currentGame = Table.GetCurrentGame();
             int amountToBetOrRaise = int.Parse(numericUpDownBet.Value.ToString());
+            if (currentGame.Bet == Table.Ante)
+                UpdateCurrentPlayerMoveLabel($"БЕТ ${amountToBetOrRaise}");
+            else
+                UpdateCurrentPlayerMoveLabel($"РАЙЗ ${amountToBetOrRaise}");
+
             currentPlayer.PlaceBet(amountToBetOrRaise);
             currentGame.IncreasePot(amountToBetOrRaise);
             currentGame.SetMaxBet(currentPlayer.Bet);
-
-            if (panelBet.Text == "Введите сумму рейза")
-                UpdateCurrentPlayerMoveLabel($"Рейз ({amountToBetOrRaise})");
-            else
-                UpdateCurrentPlayerMoveLabel($"Бет ({amountToBetOrRaise})");
+            Table.GetPlayer(Table.CurrentPlayerPosition).Hand.Hide();
+            DisableMovePanelButtons();
+            NextButton.Enabled = true;
         }
 
-        private void buttonCancelBet_Click(object sender, EventArgs e)
+        private void BetCancelButton_Click(object sender, EventArgs e)
         {
-            panelBet.Visible = false;
-            panelAction.Visible = true;
+            NextButton.Enabled = true;
+            BetPanel.Visible = false;
+            MoveSelectionPanel.Visible = true;
         }
 
-        public void StartGame()
+        private void EnableChangeCardPanelButtons()
         {
-            panelAnte.Visible = true;
-            buttonStartGame.Enabled = false;
-            _table.AddGame();
-            _table.StartCurrentGame();
+            ChangeCard1Button.Enabled = true;
+            ChangeCard2Button.Enabled = true;
+            ChangeCard3Button.Enabled = true;
+            ChangeCard4Button.Enabled = true;
+            ChangeCard5Button.Enabled = true;
+        }
+
+        private void DisableChangeCardPanelButtons()
+        {
+            ChangeCard1Button.Enabled = false;
+            ChangeCard2Button.Enabled = false;
+            ChangeCard3Button.Enabled = false;
+            ChangeCard4Button.Enabled = false;
+            ChangeCard5Button.Enabled = false;
+        }
+
+        private void ChangeCard(int cardPosition)
+        {
+            Player currentPlayer = Table.GetPlayer(Table.CurrentPlayerPosition);
+            Card card = Table.Deck.DealTopCard();
+            currentPlayer.Hand.ChangeCard(cardPosition, card);
+            currentPlayer.Hand.GetCard(cardPosition).TurnFaceUp();
+        }
+
+        private void ChangeCard1Button_Click(object sender, EventArgs e)
+        {
+            ChangeCard1Button.Enabled = false;
+            ChangeCard(0);
+        }
+
+        private void ChangeCard2Button_Click(object sender, EventArgs e)
+        {
+            ChangeCard2Button.Enabled = false;
+            ChangeCard(1);
+        }
+
+        private void ChangeCard3Button_Click(object sender, EventArgs e)
+        {
+            ChangeCard3Button.Enabled = false;
+            ChangeCard(2);
+        }
+
+        private void ChangeCard4Button_Click(object sender, EventArgs e)
+        {
+            ChangeCard4Button.Enabled = false;
+            ChangeCard(3);
+        }
+
+        private void ChangeCard5Button_Click(object sender, EventArgs e)
+        {
+            ChangeCard5Button.Enabled = false;
+            ChangeCard(4);
+        }
+
+        private void HideCardsButton_Click(object sender, EventArgs e)
+        {
+            Player currentPlayer = Table.GetPlayer(Table.CurrentPlayerPosition);
+            currentPlayer.Hand.Hide();
+            NextButton.Enabled = true;
+            HideCardsButton.Visible = false;
+            DisableChangeCardPanelButtons();
         }
     }
 }

@@ -60,7 +60,7 @@ namespace PokerDraw
 
         public void SortCards()
         {
-            _cards.OrderBy(rank => rank).ToList();
+            _cards.Sort();
         }
 
         public void Clear()

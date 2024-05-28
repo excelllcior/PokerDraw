@@ -35,7 +35,7 @@ namespace PokerDraw
 
             foreach (var player in _players)
             {
-                if (player.Bankroll == 0) count++;
+                if (player.Bankroll < Ante) count++;
             }
             return count;
         }
@@ -127,7 +127,7 @@ namespace PokerDraw
             Deck.ResetCards();
             foreach (Player player in _players)
             {
-                if (player.Bankroll != 0)
+                if (player.Bankroll >= Ante)
                 {
                     player.Hand.Clear();
                     player.ResetBet();
@@ -169,13 +169,13 @@ namespace PokerDraw
                 }
             }
 
-            for (int i = 0; i < 5; i++)
-            {
-                if (tempWinners.Count > 1)
-                {
-                    CompareKickers(tempWinners, i);
-                }
-            }
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    if (tempWinners.Count > 1)
+            //    {
+            //        CompareKickers(tempWinners, i);
+            //    }
+            //}
 
             if (tempWinners.Count > 1)
             {
@@ -183,6 +183,13 @@ namespace PokerDraw
                 {
                     _games.Last().AddWinner(player);
                 }
+            }
+            else
+                _games.Last().AddWinner(tempWinners[0]);
+
+            foreach (Player player in tempWinners)
+            {
+                Console.WriteLine($"Имя - {player.Name}, комбинация - {player.Hand.Ranking}");
             }
         }
 

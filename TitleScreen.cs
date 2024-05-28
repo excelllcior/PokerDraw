@@ -37,7 +37,8 @@ namespace PokerDraw
 
         private void buttonJoinTable_Click(object sender, EventArgs e)
         {
-            NameEntryScreen form = new NameEntryScreen(_numberOfPlayers);
+            var names = new List<string> { "studski", "frog11", "hahahaha", "richie" };
+            PokerTableScreen form = new PokerTableScreen(names);
             form.Show();
         }
     }
