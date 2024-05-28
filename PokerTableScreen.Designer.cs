@@ -28,10 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.BetPanel = new System.Windows.Forms.GroupBox();
             this.numericUpDownBet = new System.Windows.Forms.NumericUpDown();
-            this.BetConfirmButton = new System.Windows.Forms.Button();
-            this.BetCancelButton = new System.Windows.Forms.Button();
             this.Player4MoveLabel = new System.Windows.Forms.Label();
             this.Player4NameLabel = new System.Windows.Forms.Label();
             this.Player4BankrollLabel = new System.Windows.Forms.Label();
@@ -103,7 +100,9 @@
             this.Player1CrossImage = new System.Windows.Forms.PictureBox();
             this.Player3CrossImage = new System.Windows.Forms.PictureBox();
             this.Player4CrossImage = new System.Windows.Forms.PictureBox();
-            this.BetPanel.SuspendLayout();
+            this.BetPanel = new System.Windows.Forms.Panel();
+            this.BetCancelButton = new System.Windows.Forms.Button();
+            this.BetConfirmButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player4Image)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player3Image)).BeginInit();
@@ -143,47 +142,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.Player1CrossImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player3CrossImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player4CrossImage)).BeginInit();
+            this.BetPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // BetPanel
-            // 
-            this.BetPanel.Controls.Add(this.numericUpDownBet);
-            this.BetPanel.Controls.Add(this.BetConfirmButton);
-            this.BetPanel.Controls.Add(this.BetCancelButton);
-            this.BetPanel.Location = new System.Drawing.Point(0, 168);
-            this.BetPanel.Name = "BetPanel";
-            this.BetPanel.Size = new System.Drawing.Size(324, 67);
-            this.BetPanel.TabIndex = 6;
-            this.BetPanel.TabStop = false;
-            this.BetPanel.Text = "Введите сумму";
-            this.BetPanel.Visible = false;
             // 
             // numericUpDownBet
             // 
-            this.numericUpDownBet.Location = new System.Drawing.Point(6, 25);
+            this.numericUpDownBet.BackColor = System.Drawing.Color.White;
+            this.numericUpDownBet.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.numericUpDownBet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDownBet.ForeColor = System.Drawing.Color.Black;
+            this.numericUpDownBet.Location = new System.Drawing.Point(8, 14);
             this.numericUpDownBet.Name = "numericUpDownBet";
-            this.numericUpDownBet.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownBet.Size = new System.Drawing.Size(120, 18);
             this.numericUpDownBet.TabIndex = 1;
-            // 
-            // BetConfirmButton
-            // 
-            this.BetConfirmButton.Location = new System.Drawing.Point(132, 24);
-            this.BetConfirmButton.Name = "BetConfirmButton";
-            this.BetConfirmButton.Size = new System.Drawing.Size(97, 23);
-            this.BetConfirmButton.TabIndex = 0;
-            this.BetConfirmButton.Text = "Подтвердить";
-            this.BetConfirmButton.UseVisualStyleBackColor = true;
-            this.BetConfirmButton.Click += new System.EventHandler(this.BetConfirmButton_Click);
-            // 
-            // BetCancelButton
-            // 
-            this.BetCancelButton.Location = new System.Drawing.Point(235, 24);
-            this.BetCancelButton.Name = "BetCancelButton";
-            this.BetCancelButton.Size = new System.Drawing.Size(75, 23);
-            this.BetCancelButton.TabIndex = 0;
-            this.BetCancelButton.Text = "Отмена";
-            this.BetCancelButton.UseVisualStyleBackColor = true;
-            this.BetCancelButton.Click += new System.EventHandler(this.BetCancelButton_Click);
+            this.numericUpDownBet.ThousandsSeparator = true;
             // 
             // Player4MoveLabel
             // 
@@ -1153,11 +1125,62 @@
             this.Player4CrossImage.TabStop = false;
             this.Player4CrossImage.Visible = false;
             // 
+            // BetPanel
+            // 
+            this.BetPanel.BackColor = System.Drawing.Color.Transparent;
+            this.BetPanel.Controls.Add(this.numericUpDownBet);
+            this.BetPanel.Controls.Add(this.BetCancelButton);
+            this.BetPanel.Controls.Add(this.BetConfirmButton);
+            this.BetPanel.Location = new System.Drawing.Point(320, 558);
+            this.BetPanel.Name = "BetPanel";
+            this.BetPanel.Size = new System.Drawing.Size(396, 54);
+            this.BetPanel.TabIndex = 22;
+            this.BetPanel.Visible = false;
+            // 
+            // BetCancelButton
+            // 
+            this.BetCancelButton.BackColor = System.Drawing.Color.Transparent;
+            this.BetCancelButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
+            this.BetCancelButton.FlatAppearance.BorderSize = 0;
+            this.BetCancelButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.BetCancelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BetCancelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BetCancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BetCancelButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.BetCancelButton.ForeColor = System.Drawing.Color.White;
+            this.BetCancelButton.Location = new System.Drawing.Point(268, 3);
+            this.BetCancelButton.Name = "BetCancelButton";
+            this.BetCancelButton.Size = new System.Drawing.Size(125, 38);
+            this.BetCancelButton.TabIndex = 21;
+            this.BetCancelButton.Text = "ОТМЕНА";
+            this.BetCancelButton.UseVisualStyleBackColor = true;
+            this.BetCancelButton.Click += new System.EventHandler(this.BetCancelButton_Click);
+            // 
+            // BetConfirmButton
+            // 
+            this.BetConfirmButton.BackColor = System.Drawing.Color.Transparent;
+            this.BetConfirmButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
+            this.BetConfirmButton.FlatAppearance.BorderSize = 0;
+            this.BetConfirmButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.BetConfirmButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BetConfirmButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BetConfirmButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BetConfirmButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.BetConfirmButton.ForeColor = System.Drawing.Color.White;
+            this.BetConfirmButton.Location = new System.Drawing.Point(134, 3);
+            this.BetConfirmButton.Name = "BetConfirmButton";
+            this.BetConfirmButton.Size = new System.Drawing.Size(125, 38);
+            this.BetConfirmButton.TabIndex = 21;
+            this.BetConfirmButton.Text = "ПОДТВЕРДИТЬ";
+            this.BetConfirmButton.UseVisualStyleBackColor = false;
+            this.BetConfirmButton.Click += new System.EventHandler(this.BetConfirmButton_Click);
+            // 
             // PokerTableScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.BetPanel);
             this.Controls.Add(this.Player4CrossImage);
             this.Controls.Add(this.StartGameButton);
             this.Controls.Add(this.HideCardsButton);
@@ -1216,12 +1239,10 @@
             this.Controls.Add(this.Player1MoveLabel);
             this.Controls.Add(this.Player1BankrollLabel);
             this.Controls.Add(this.Player1NameLabel);
-            this.Controls.Add(this.BetPanel);
             this.Controls.Add(this.BackgroundImage);
             this.Name = "PokerTableScreen";
             this.Text = "Покерный стол";
             this.Load += new System.EventHandler(this.PokerTableScreen_Load);
-            this.BetPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player4Image)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player3Image)).EndInit();
@@ -1261,16 +1282,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.Player1CrossImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player3CrossImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player4CrossImage)).EndInit();
+            this.BetPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.GroupBox BetPanel;
         private System.Windows.Forms.NumericUpDown numericUpDownBet;
-        private System.Windows.Forms.Button BetConfirmButton;
-        private System.Windows.Forms.Button BetCancelButton;
         private System.Windows.Forms.Label Player4MoveLabel;
         private System.Windows.Forms.Label Player4NameLabel;
         private System.Windows.Forms.Label Player4BankrollLabel;
@@ -1342,5 +1361,8 @@
         private System.Windows.Forms.PictureBox Player1CrossImage;
         private System.Windows.Forms.PictureBox Player3CrossImage;
         private System.Windows.Forms.PictureBox Player4CrossImage;
+        private System.Windows.Forms.Panel BetPanel;
+        private System.Windows.Forms.Button BetConfirmButton;
+        private System.Windows.Forms.Button BetCancelButton;
     }
 }

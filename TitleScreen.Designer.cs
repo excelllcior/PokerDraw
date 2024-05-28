@@ -28,109 +28,101 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelGameTitle = new System.Windows.Forms.Label();
-            this.buttonJoinTable = new System.Windows.Forms.Button();
-            this.radioButton3Players = new System.Windows.Forms.RadioButton();
-            this.radioButton2Players = new System.Windows.Forms.RadioButton();
-            this.radioButton4Players = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox1.SuspendLayout();
+            this.BackgroundImage = new System.Windows.Forms.PictureBox();
+            this.StartFor2PLayersButton = new System.Windows.Forms.Button();
+            this.StartFor3PLayersButton = new System.Windows.Forms.Button();
+            this.StartFor4PLayersButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.BackgroundImage)).BeginInit();
             this.SuspendLayout();
             // 
-            // labelGameTitle
+            // BackgroundImage
             // 
-            this.labelGameTitle.AutoSize = true;
-            this.labelGameTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelGameTitle.Location = new System.Drawing.Point(15, 9);
-            this.labelGameTitle.Name = "labelGameTitle";
-            this.labelGameTitle.Size = new System.Drawing.Size(85, 16);
-            this.labelGameTitle.TabIndex = 0;
-            this.labelGameTitle.Text = "Покер Дро";
+            this.BackgroundImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BackgroundImage.Image = global::PokerDraw.Properties.Resources.bg_title;
+            this.BackgroundImage.Location = new System.Drawing.Point(0, 0);
+            this.BackgroundImage.Name = "BackgroundImage";
+            this.BackgroundImage.Size = new System.Drawing.Size(1264, 681);
+            this.BackgroundImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.BackgroundImage.TabIndex = 6;
+            this.BackgroundImage.TabStop = false;
             // 
-            // buttonJoinTable
+            // StartFor2PLayersButton
             // 
-            this.buttonJoinTable.Location = new System.Drawing.Point(12, 139);
-            this.buttonJoinTable.Name = "buttonJoinTable";
-            this.buttonJoinTable.Size = new System.Drawing.Size(152, 23);
-            this.buttonJoinTable.TabIndex = 1;
-            this.buttonJoinTable.Text = "Присоединиться к столу";
-            this.buttonJoinTable.UseVisualStyleBackColor = true;
-            this.buttonJoinTable.Click += new System.EventHandler(this.buttonJoinTable_Click);
+            this.StartFor2PLayersButton.BackColor = System.Drawing.Color.Transparent;
+            this.StartFor2PLayersButton.BackgroundImage = global::PokerDraw.Properties.Resources.big_button;
+            this.StartFor2PLayersButton.FlatAppearance.BorderSize = 0;
+            this.StartFor2PLayersButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.StartFor2PLayersButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.StartFor2PLayersButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.StartFor2PLayersButton.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.StartFor2PLayersButton.ForeColor = System.Drawing.Color.White;
+            this.StartFor2PLayersButton.Location = new System.Drawing.Point(270, 495);
+            this.StartFor2PLayersButton.Name = "StartFor2PLayersButton";
+            this.StartFor2PLayersButton.Size = new System.Drawing.Size(224, 64);
+            this.StartFor2PLayersButton.TabIndex = 7;
+            this.StartFor2PLayersButton.Text = "2 ИГРОКА";
+            this.StartFor2PLayersButton.UseVisualStyleBackColor = false;
+            this.StartFor2PLayersButton.Click += new System.EventHandler(this.StartFor2PLayersButton_Click);
             // 
-            // radioButton3Players
+            // StartFor3PLayersButton
             // 
-            this.radioButton3Players.AutoSize = true;
-            this.radioButton3Players.Location = new System.Drawing.Point(6, 42);
-            this.radioButton3Players.Name = "radioButton3Players";
-            this.radioButton3Players.Size = new System.Drawing.Size(69, 17);
-            this.radioButton3Players.TabIndex = 2;
-            this.radioButton3Players.TabStop = true;
-            this.radioButton3Players.Text = "3 игрока";
-            this.radioButton3Players.UseVisualStyleBackColor = true;
-            this.radioButton3Players.CheckedChanged += new System.EventHandler(this.radioButton3Players_CheckedChanged);
+            this.StartFor3PLayersButton.BackColor = System.Drawing.Color.Transparent;
+            this.StartFor3PLayersButton.BackgroundImage = global::PokerDraw.Properties.Resources.big_button;
+            this.StartFor3PLayersButton.FlatAppearance.BorderSize = 0;
+            this.StartFor3PLayersButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.StartFor3PLayersButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.StartFor3PLayersButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.StartFor3PLayersButton.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.StartFor3PLayersButton.ForeColor = System.Drawing.Color.White;
+            this.StartFor3PLayersButton.Location = new System.Drawing.Point(521, 495);
+            this.StartFor3PLayersButton.Name = "StartFor3PLayersButton";
+            this.StartFor3PLayersButton.Size = new System.Drawing.Size(224, 64);
+            this.StartFor3PLayersButton.TabIndex = 8;
+            this.StartFor3PLayersButton.Text = "3 ИГРОКА";
+            this.StartFor3PLayersButton.UseVisualStyleBackColor = false;
+            this.StartFor3PLayersButton.Click += new System.EventHandler(this.StartFor3PLayersButton_Click);
             // 
-            // radioButton2Players
+            // StartFor4PLayersButton
             // 
-            this.radioButton2Players.AutoSize = true;
-            this.radioButton2Players.Checked = true;
-            this.radioButton2Players.Location = new System.Drawing.Point(6, 19);
-            this.radioButton2Players.Name = "radioButton2Players";
-            this.radioButton2Players.Size = new System.Drawing.Size(69, 17);
-            this.radioButton2Players.TabIndex = 3;
-            this.radioButton2Players.TabStop = true;
-            this.radioButton2Players.Text = "2 игрока";
-            this.radioButton2Players.UseVisualStyleBackColor = true;
-            this.radioButton2Players.CheckedChanged += new System.EventHandler(this.radioButton2Players_CheckedChanged);
-            // 
-            // radioButton4Players
-            // 
-            this.radioButton4Players.AutoSize = true;
-            this.radioButton4Players.Location = new System.Drawing.Point(6, 65);
-            this.radioButton4Players.Name = "radioButton4Players";
-            this.radioButton4Players.Size = new System.Drawing.Size(69, 17);
-            this.radioButton4Players.TabIndex = 4;
-            this.radioButton4Players.TabStop = true;
-            this.radioButton4Players.Text = "4 игрока";
-            this.radioButton4Players.UseVisualStyleBackColor = true;
-            this.radioButton4Players.CheckedChanged += new System.EventHandler(this.radioButton4Players_CheckedChanged);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.radioButton2Players);
-            this.groupBox1.Controls.Add(this.radioButton4Players);
-            this.groupBox1.Controls.Add(this.radioButton3Players);
-            this.groupBox1.Location = new System.Drawing.Point(12, 39);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(152, 94);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Количество игроков";
+            this.StartFor4PLayersButton.BackColor = System.Drawing.Color.Transparent;
+            this.StartFor4PLayersButton.BackgroundImage = global::PokerDraw.Properties.Resources.big_button;
+            this.StartFor4PLayersButton.FlatAppearance.BorderSize = 0;
+            this.StartFor4PLayersButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.StartFor4PLayersButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.StartFor4PLayersButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.StartFor4PLayersButton.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.StartFor4PLayersButton.ForeColor = System.Drawing.Color.White;
+            this.StartFor4PLayersButton.Location = new System.Drawing.Point(772, 495);
+            this.StartFor4PLayersButton.Name = "StartFor4PLayersButton";
+            this.StartFor4PLayersButton.Size = new System.Drawing.Size(224, 64);
+            this.StartFor4PLayersButton.TabIndex = 9;
+            this.StartFor4PLayersButton.Text = "4 ИГРОКА";
+            this.StartFor4PLayersButton.UseVisualStyleBackColor = false;
+            this.StartFor4PLayersButton.Click += new System.EventHandler(this.StartFor4PLayersButton_Click);
             // 
             // TitleScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(177, 177);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.buttonJoinTable);
-            this.Controls.Add(this.labelGameTitle);
+            this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.StartFor4PLayersButton);
+            this.Controls.Add(this.StartFor3PLayersButton);
+            this.Controls.Add(this.StartFor2PLayersButton);
+            this.Controls.Add(this.BackgroundImage);
+            this.MaximizeBox = false;
             this.Name = "TitleScreen";
             this.Text = "Главный экран";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BackgroundImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label labelGameTitle;
-        private System.Windows.Forms.Button buttonJoinTable;
-        private System.Windows.Forms.RadioButton radioButton3Players;
-        private System.Windows.Forms.RadioButton radioButton2Players;
-        private System.Windows.Forms.RadioButton radioButton4Players;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.PictureBox BackgroundImage;
+        private System.Windows.Forms.Button StartFor2PLayersButton;
+        private System.Windows.Forms.Button StartFor3PLayersButton;
+        private System.Windows.Forms.Button StartFor4PLayersButton;
     }
 }
 

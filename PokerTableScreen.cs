@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,6 +63,9 @@ namespace PokerDraw
             // Панель - Выбор хода
             MoveSelectionPanel.Parent = BackgroundImage;
             MoveSelectionPanel.Location = new Point((formWidth - MoveSelectionPanel.Width) / 2, 610);
+            // Панель - Ввод ставки
+            BetPanel.Parent = BackgroundImage;
+            BetPanel.Location = new Point((formWidth - BetPanel.Width) / 2, 610);
             // Панель - Анте
             AntePanel.Parent = BackgroundImage;
             AntePanel.Location = new Point((formWidth - AntePanel.Width) / 2, 610);
@@ -287,6 +291,22 @@ namespace PokerDraw
             playerMoveLabel.Text = move.ToUpper();
         }
 
+        private void ClearPlayerInGameMoveLabels()
+        {
+            var playerImages = new List<PictureBox>{
+                Player1Image, Player2Image, Player3Image, Player4Image
+            };
+            for (int i = 0; i < NumberOfPlayers; i++)
+            {
+                Player player = Table.GetPlayer(i);
+                PictureBox playerImage = playerImages[i];
+                if (player.IsInGame)
+                {
+                    playerImage.Controls[$"Player{i + 1}MoveLabel"].Text = "";
+                }
+            }
+        }
+
         private void UpdateOnGameStart()
         {
             if (Table.GetNumberOfEliminatedPLayers() < NumberOfPlayers - 1)
@@ -327,8 +347,8 @@ namespace PokerDraw
             else
             {
                 DialogResult result = MessageBox.Show(
-                    "СТОЛ ЗАКРЫТ. ПРИЧИНА: ОСТАЛСЯ ТОЛЬКО ОДИН ИГРОК, СПОСОБНЫЙ ВНЕСТИ АНТЕ",
-                    "ЗАКРЫТИЕ", MessageBoxButtons.OK);
+                    "Стол закрыт. Остался только один игрок, способный внести анте",
+                    "Закрытие", MessageBoxButtons.OK);
 
                 if (result == DialogResult.OK)
                     this.Close();
@@ -342,6 +362,7 @@ namespace PokerDraw
 
         private void DealCardsButton_Click(object sender, EventArgs e)
         {
+            NextButton.Enabled = true;
             Table.Deck.Shuffle();
             Table.DealCardsToPlayersInGame();
             DealCardsButton.Visible = false;
@@ -357,7 +378,8 @@ namespace PokerDraw
                 Table.SwitchToNextPlayerInGame();
 
                 Player currentPlayer = Table.GetPlayer(Table.CurrentPlayerPosition);
-                int round = Table.GetCurrentGame().Round;
+                Game currentGame = Table.GetCurrentGame();
+                int round = currentGame.Round;
 
                 if (round == 0)
                 {
@@ -367,7 +389,6 @@ namespace PokerDraw
                     {
                         AntePanel.Visible = false;
                         DealCardsButton.Visible = true;
-                        NextButton.Enabled = true;
                     }
                 }
                 else if (round == 1)
@@ -424,20 +445,22 @@ namespace PokerDraw
                     }
                     Table.DetermineWinners();
                     RoundNameLabel.Text = "РАУНД «ФИНАЛЬНОЕ ОТКРЫТИЕ»";
-                    RoundInfoLabel.Text = $"КОЛИЧЕСТВО ПОБЕДИТЕЛЕЙ: {Table.GetCurrentGame().GetNumberOfWinners()}";
-                    var currentGame = Table.GetCurrentGame();
+                    RoundInfoLabel.Text = "ПОБЕДИТЕЛИ:";
                     decimal numberOfWinners = currentGame.GetNumberOfWinners();
                     decimal prize = Math.Round(currentGame.Pot / numberOfWinners, MidpointRounding.ToEven);
                     for (int i = 0; i < currentGame.GetNumberOfWinners(); i++)
                     {
-                        currentGame.GetWinner(i).IncreaseBankroll((int)prize);
+                        var winner = currentGame.GetWinner(i);
+                        RoundInfoLabel.Text += $"{winner.Name.ToUpper()}";
+                        if (i != currentGame.GetNumberOfWinners())
+                            RoundInfoLabel.Text += ", ";
+                        winner.IncreaseBankroll((int)prize);
                     }
+                    UpdatePlayerAndTableImages();
                 }
             }
             else
             {
-                RoundNameLabel.Text = "РАУНД «ФИНАЛЬНОЕ ОТКРЫТИЕ»";
-                RoundInfoLabel.Text = $"В ИГРЕ ОСТАЛСЯ ТОЛЬКО ОДИН ИГРОК";
                 ClearPlayerInGameMoveLabels();
                 AntePanel.Visible = false;
                 MoveSelectionPanel.Visible = false;
@@ -448,11 +471,15 @@ namespace PokerDraw
                     Table.GetPlayer(i).Hand.Show();
                 }
                 Table.DetermineWinners();
+                RoundNameLabel.Text = "РАУНД «ФИНАЛЬНОЕ ОТКРЫТИЕ»";
                 var currentGame = Table.GetCurrentGame();
                 for (int i = 0; i < currentGame.GetNumberOfWinners(); i++)
                 {
-                    currentGame.GetWinner(i).IncreaseBankroll(currentGame.Pot);
+                    var winner = currentGame.GetWinner(i);
+                    RoundInfoLabel.Text = $"{winner.Name.ToUpper()} ЗАБИРАЕТ БАНК";
+                    winner.IncreaseBankroll(currentGame.Pot);
                 }
+                UpdatePlayerAndTableImages();
             }
         }
 
@@ -694,8 +721,6 @@ namespace PokerDraw
 
         private void ChangeCard1Button_Click(object sender, EventArgs e)
         {
-            Player currentPlayer = Table.GetPlayer(Table.CurrentPlayerPosition);
-            currentPlayer.Hand.GetCard(0);
             ChangeCard1Button.Enabled = false;
             UpdateButtons();
             ChangeCard(0);
@@ -749,22 +774,6 @@ namespace PokerDraw
         private void StartGameButton_Click(object sender, EventArgs e)
         {
             UpdateOnGameStart();
-        }
-
-        private void ClearPlayerInGameMoveLabels()
-        {
-            var playerImages = new List<PictureBox>{
-                Player1Image, Player2Image, Player3Image, Player4Image
-            };
-            for (int i = 0; i < NumberOfPlayers; i++) 
-            {
-                Player player = Table.GetPlayer(i);
-                PictureBox playerImage = playerImages[i];
-                if (player.IsInGame) 
-                {
-                    playerImage.Controls[$"Player{i + 1}MoveLabel"].Text = "";
-                }
-            }
         }
     }
 }

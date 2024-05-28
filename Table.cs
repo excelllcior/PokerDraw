@@ -164,56 +164,56 @@ namespace PokerDraw
                 }
             }
 
-            Rank rank = Rank.Two;
             if (tempWinners.Count > 1)
             {
-                foreach (var player in tempWinners)
+                if (highestRanking == Ranking.RoyalFlush)
                 {
-                    var cards = new List<Card>();
-                    for (int i = 0; i < player.Hand.GetNumberOfCards(); i++)
-                        cards.Add(player.Hand.GetCard(i));
 
-                    if (highestRanking == Ranking.RoyalFlush)
-                    {
-
-                    }
-                    else if (highestRanking == Ranking.StraightFlush)
-                    {
-
-                    }
-                    else if (highestRanking == Ranking.FourOfAKind)
-                    {
-
-                    }
-                    else if (highestRanking == Ranking.FullHouse)
-                    {
-
-                    }
-                    else if (highestRanking == Ranking.Flush)
-                    {
-
-                    }
-                    else if (highestRanking == Ranking.Straight)
-                    {
-
-                    }
-                    else if (highestRanking == Ranking.ThreeOfAKind)
-                    {
-
-                    }
-                    else if (highestRanking == Ranking.TwoPairs)
-                    {
-
-                    }
-                    else if (highestRanking == Ranking.Pair)
-                    {
-
-                    }
-                    else
-                    {
-
-                    } 
                 }
+                else if (highestRanking == Ranking.StraightFlush)
+                {
+
+                }
+                else if (highestRanking == Ranking.FourOfAKind)
+                {
+
+                }
+                else if (highestRanking == Ranking.FullHouse)
+                {
+
+                }
+                else if (highestRanking == Ranking.Flush)
+                {
+
+                }
+                else if (highestRanking == Ranking.Straight)
+                {
+                    Rank rank = Rank.Two;
+                    foreach (var player in tempWinners)
+                    {
+                        var cards = new List<Card>();
+                        for (int i = 0; i < player.Hand.GetNumberOfCards(); i++)
+                            cards.Add(player.Hand.GetCard(i));
+
+                        if
+                    }
+                }
+                else if (highestRanking == Ranking.ThreeOfAKind)
+                {
+
+                }
+                else if (highestRanking == Ranking.TwoPairs)
+                {
+
+                }
+                else if (highestRanking == Ranking.Pair)
+                {
+
+                }
+                else
+                {
+
+                } 
             }
 
             foreach (Player player in tempWinners)

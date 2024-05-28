@@ -13,40 +13,44 @@ namespace PokerDraw
         {
             InitializeComponent();
             _numberOfPlayers = numberOfPlayers;
+            PlayerNumberLabel.Parent = BackgroundImage;
+            NameLabel.Parent = BackgroundImage;
+            NameTextBox.Parent = BackgroundImage;
+            NextButton.Parent = BackgroundImage;
         }
 
         private void NameEntryScreen_Load(object sender, EventArgs e)
         {
-            labelPlayerNumber.Text = $"Игрок: {_playerNames.Count + 1}";
+            PlayerNumberLabel.Text = $"Игрок: {_playerNames.Count + 1}";
         }
 
-        private void buttonNext_Click(object sender, EventArgs e)
+        private void NextButton_Click(object sender, EventArgs e)
         {
-            string name = textBoxName.Text.Trim();
-
-            if (name.Length >= 3 && name.Length <= 15)
+            if (_playerNames.Count < _numberOfPlayers)
             {
-                _playerNames.Add(name);
-                textBoxName.Text = "";
+                string name = NameTextBox.Text.Trim();
 
-                if (_playerNames.Count == _numberOfPlayers)
+                if (name.Length >= 3 && name.Length <= 15)
                 {
-                    textBoxName.Enabled = false;
-                    buttonNext.Enabled = false;
-                    buttonStart.Enabled = true;
+                    _playerNames.Add(name);
+                    NameTextBox.Text = "";
+                    if (_playerNames.Count == _numberOfPlayers)
+                    {
+                        NameTextBox.Enabled = false;
+                        NextButton.Text = "НАЧАТЬ";
+                    }
+                    else
+                        PlayerNumberLabel.Text = $"Игрок: {_playerNames.Count + 1}";
                 }
                 else
-                    labelPlayerNumber.Text = $"Игрок: {_playerNames.Count + 1}";
+                    MessageBox.Show("Имя игрока должно содержать от 3 до 15 символов", "Ошибка", MessageBoxButtons.OK);
             }
             else
-                MessageBox.Show("Имя игрока должно содержать от 3 до 15 символов", "Ошибка", MessageBoxButtons.OK);
-        }
-
-        private void buttonStart_Click(object sender, EventArgs e)
-        {
-            PokerTableScreen form = new PokerTableScreen(_playerNames);
-            form.Show();
-            this.Close();
+            {
+                PokerTableScreen form = new PokerTableScreen(_playerNames);
+                form.Show();
+                this.Close();
+            }
         }
     }
 }

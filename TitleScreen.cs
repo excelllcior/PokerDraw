@@ -13,35 +13,29 @@ namespace PokerDraw
 {
     public partial class TitleScreen : Form
     {
-        private int NumberOfPlayers = 2;
-
         public TitleScreen()
         {
             InitializeComponent();
+            StartFor2PLayersButton.Parent = BackgroundImage;
+            StartFor3PLayersButton.Parent = BackgroundImage;
+            StartFor4PLayersButton.Parent = BackgroundImage;
         }
 
-        private void radioButton2Players_CheckedChanged(object sender, EventArgs e)
+        private void StartFor2PLayersButton_Click(object sender, EventArgs e)
         {
-            NumberOfPlayers = 2;
+            NameEntryScreen form = new NameEntryScreen(2);
+            form.Show();
         }
 
-        private void radioButton3Players_CheckedChanged(object sender, EventArgs e)
+        private void StartFor3PLayersButton_Click(object sender, EventArgs e)
         {
-            NumberOfPlayers = 3;
+            NameEntryScreen form = new NameEntryScreen(3);
+            form.Show();
         }
 
-        private void radioButton4Players_CheckedChanged(object sender, EventArgs e)
+        private void StartFor4PLayersButton_Click(object sender, EventArgs e)
         {
-            NumberOfPlayers = 4;
-        }
-
-        private void buttonJoinTable_Click(object sender, EventArgs e)
-        {
-            //var names = new List<string> { "studski", "frog11", "hahahaha", "richie" };
-            //PokerTableScreen form = new PokerTableScreen(names);
-            //form.Show();
-
-            NameEntryScreen form = new NameEntryScreen(NumberOfPlayers);
+            NameEntryScreen form = new NameEntryScreen(4);
             form.Show();
         }
     }

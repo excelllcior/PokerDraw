@@ -299,5 +299,11 @@
   <ItemGroup>
     <None Include="Resources\round_panel.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bg_title.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\big_button.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
