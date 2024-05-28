@@ -60,7 +60,13 @@ namespace PokerDraw
 
         public void SortCards()
         {
-            _cards.Sort();
+            var sortedCards = new List<Card>();
+            sortedCards = _cards.OrderByDescending(c => c.Rank).ToList();
+            _cards.Clear();
+            foreach (Card card in sortedCards)
+            {
+                _cards.Add(card);
+            }
         }
 
         public void Clear()
@@ -94,91 +100,57 @@ namespace PokerDraw
 
         private bool IsPair()
         {
-            IEnumerable<IGrouping<Rank, Card>> groupsOfRanks = _cards.GroupBy(card => card.Rank);
-
-            foreach (var group in groupsOfRanks)
-            {
-                if (group.Count() == 2)
-                    return true;
-            }
-            return false;
+            return _cards.GroupBy(c => c.Rank).Count(group => group.Count() == 2) == 1;
         }
 
         private bool IsTwoPair()
         {
-            IEnumerable<IGrouping<Rank, Card>> groupsOfRanks = _cards.GroupBy(card => card.Rank);
-            int pairCount = 0;
-
-            foreach (var group in groupsOfRanks)
-            {
-                if (group.Count() == 2)
-                    pairCount++;
-            }
-            return pairCount == 2;
+            return _cards.GroupBy(c => c.Rank).Count(group => group.Count() == 2) == 2;
         }
 
         private bool IsThreeOfAKind()
         {
-            IEnumerable<IGrouping<Rank, Card>> groupsOfRanks = _cards.GroupBy(card => card.Rank);
-
-            foreach (var group in groupsOfRanks)
-            {
-                if (group.Count() == 3)
-                    return true;
-            }
-            return false;
+            return _cards.GroupBy(c => c.Rank).Any(group => group.Count() == 3);
         }
 
         private bool IsStraight()
         {
-            List<int> ranks = _cards.Select(cards => (int)cards.Rank).OrderBy(rank => rank).ToList();
+            var distinctValues = _cards.Select(c => (int)c.Rank).Distinct().OrderBy(v => v).ToList();
+            if (distinctValues.Count < 5) return false;
 
-            for (int i = 1; i < ranks.Count; i++)
+            for (int i = 0; i < distinctValues.Count - 1; i++)
             {
-                if (ranks[i] != ranks[i - 1] + 1)
+                if (distinctValues[i + 1] - distinctValues[i] != 1)
+                {
                     return false;
+                }
             }
             return true;
         }
 
         private bool IsFlush()
         {
-            List<Suit> suits = _cards.Select(card => card.Suit).Distinct().ToList();
-            return suits.Count == 1;
+            return _cards.Select(c => c.Suit).Distinct().Count() == 1;
         }
 
         private bool IsFullHouse()
         {
-            IEnumerable<IGrouping<Rank, Card>> groupsOfRanks = _cards.GroupBy(card => card.Rank);
-
-            if (groupsOfRanks.Count() == 2)
-            {
-                if (IsTwoPair() && IsThreeOfAKind())
-                    return true;
-            }
-            return false;
+            return IsThreeOfAKind() && IsPair();
         }
 
         private bool IsFourOfAKind()
         {
-            IEnumerable<IGrouping<Rank, Card>> groupsOfRanks = _cards.GroupBy(card => card.Rank);
-            foreach (var group in groupsOfRanks)
-            {
-                if (group.Count() == 4)
-                    return true;
-            }
-            return false;
+            return _cards.GroupBy(c => c.Rank).Any(group => group.Count() == 4);
         }
 
         private bool IsStraightFlush()
         {
-            return IsFlush() && IsStraight();
+            return IsStraight() && IsFlush();
         }
 
         private bool IsRoyalFlush()
         {
-            bool hasRoyalCards = _cards.Any(card => new List<Rank>{ Rank.Ten, Rank.Jack, Rank.Queen, Rank.King, Rank.Ace }.Contains(card.Rank));
-            return hasRoyalCards && IsFlush();
+            return IsStraightFlush() && _cards.Any(c => c.Rank == Rank.Ace);
         }
     }
 }

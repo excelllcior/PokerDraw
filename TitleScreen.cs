@@ -13,7 +13,7 @@ namespace PokerDraw
 {
     public partial class TitleScreen : Form
     {
-        private int _numberOfPlayers = 2;
+        private int NumberOfPlayers = 2;
 
         public TitleScreen()
         {
@@ -22,23 +22,26 @@ namespace PokerDraw
 
         private void radioButton2Players_CheckedChanged(object sender, EventArgs e)
         {
-            _numberOfPlayers = 2;
+            NumberOfPlayers = 2;
         }
 
         private void radioButton3Players_CheckedChanged(object sender, EventArgs e)
         {
-            _numberOfPlayers = 3;
+            NumberOfPlayers = 3;
         }
 
         private void radioButton4Players_CheckedChanged(object sender, EventArgs e)
         {
-            _numberOfPlayers = 4;
+            NumberOfPlayers = 4;
         }
 
         private void buttonJoinTable_Click(object sender, EventArgs e)
         {
-            var names = new List<string> { "studski", "frog11", "hahahaha", "richie" };
-            PokerTableScreen form = new PokerTableScreen(names);
+            //var names = new List<string> { "studski", "frog11", "hahahaha", "richie" };
+            //PokerTableScreen form = new PokerTableScreen(names);
+            //form.Show();
+
+            NameEntryScreen form = new NameEntryScreen(NumberOfPlayers);
             form.Show();
         }
     }

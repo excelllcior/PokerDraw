@@ -127,19 +127,17 @@ namespace PokerDraw
             Deck.ResetCards();
             foreach (Player player in _players)
             {
+                player.Fold();
                 if (player.Bankroll >= Ante)
                 {
-                    player.Hand.Clear();
                     player.ResetBet();
                     player.ResetIsInGame();
                 }
             }
-
             if (_games.Count > 1)
                 SwitchToNextDealerInGame();
 
             int lastPlayerIndex = _players.IndexOf(_players.Last());
-
             if (CurrentDealerPosition + 1 > lastPlayerIndex)
                 CurrentPlayerPosition = 0;
             else
@@ -150,14 +148,11 @@ namespace PokerDraw
         {
             Ranking highestRanking = Ranking.HighCard;
             List<Player> tempWinners = new List<Player>();
-
             foreach (Player player in _players)
             {
                 if (player.IsInGame)
                 {
-                    player.Hand.SortCards();
                     player.Hand.Evaluate();
-
                     if (player.Hand.Ranking > highestRanking)
                     {
                         tempWinners.Clear();
@@ -169,34 +164,69 @@ namespace PokerDraw
                 }
             }
 
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    if (tempWinners.Count > 1)
-            //    {
-            //        CompareKickers(tempWinners, i);
-            //    }
-            //}
-
+            Rank rank = Rank.Two;
             if (tempWinners.Count > 1)
             {
-                foreach (Player player in tempWinners)
+                foreach (var player in tempWinners)
                 {
-                    _games.Last().AddWinner(player);
+                    var cards = new List<Card>();
+                    for (int i = 0; i < player.Hand.GetNumberOfCards(); i++)
+                        cards.Add(player.Hand.GetCard(i));
+
+                    if (highestRanking == Ranking.RoyalFlush)
+                    {
+
+                    }
+                    else if (highestRanking == Ranking.StraightFlush)
+                    {
+
+                    }
+                    else if (highestRanking == Ranking.FourOfAKind)
+                    {
+
+                    }
+                    else if (highestRanking == Ranking.FullHouse)
+                    {
+
+                    }
+                    else if (highestRanking == Ranking.Flush)
+                    {
+
+                    }
+                    else if (highestRanking == Ranking.Straight)
+                    {
+
+                    }
+                    else if (highestRanking == Ranking.ThreeOfAKind)
+                    {
+
+                    }
+                    else if (highestRanking == Ranking.TwoPairs)
+                    {
+
+                    }
+                    else if (highestRanking == Ranking.Pair)
+                    {
+
+                    }
+                    else
+                    {
+
+                    } 
                 }
             }
-            else
-                _games.Last().AddWinner(tempWinners[0]);
 
             foreach (Player player in tempWinners)
-            {
-                Console.WriteLine($"Имя - {player.Name}, комбинация - {player.Hand.Ranking}");
+            {   
+                Console.WriteLine($"{player.Name}, {player.Hand.Ranking}");
+                _games.Last().AddWinner(player);
             }
         }
 
         private void CompareKickers(List<Player> tempWinners, int kickerIndex)
         {
             int highestKickerValue = 0;
-
+            var temp = new List<Player>();
             foreach (Player player in tempWinners)
             {
                 Card kicker = player.Hand.GetCard(kickerIndex);
@@ -204,12 +234,12 @@ namespace PokerDraw
 
                 if (currentKickerRank > highestKickerValue)
                 {
-                    tempWinners.Clear();
-                    tempWinners.Add(player);
+                    temp.Clear();
+                    temp.Add(player);
                     highestKickerValue = currentKickerRank;
                 }
                 else if (currentKickerRank == highestKickerValue)
-                    tempWinners.Add(player);
+                    temp.Add(player);
             }
         }
     }
