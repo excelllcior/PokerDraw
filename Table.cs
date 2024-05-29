@@ -186,7 +186,6 @@ namespace PokerDraw
                         else if (rank == maxRank)
                             tempWinners.Add(player);
                     }
-                    CompareKickers(tempWinners, 0);
                 }
                 if (tempWinners.Count == 1)
                     break;
@@ -195,26 +194,6 @@ namespace PokerDraw
             foreach (Player player in tempWinners)
             {   
                 _games.Last().AddWinner(player);
-            }
-        }
-
-        private void CompareKickers(List<Player> tempWinners, int kickerIndex)
-        {
-            int highestKickerValue = 0;
-            var temp = new List<Player>();
-            foreach (Player player in tempWinners)
-            {
-                Card kicker = player.Hand.GetCard(kickerIndex);
-                int currentKickerRank = (int)kicker.Rank;
-
-                if (currentKickerRank > highestKickerValue)
-                {
-                    temp.Clear();
-                    temp.Add(player);
-                    highestKickerValue = currentKickerRank;
-                }
-                else if (currentKickerRank == highestKickerValue)
-                    temp.Add(player);
             }
         }
     }

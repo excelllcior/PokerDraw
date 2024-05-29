@@ -31,9 +31,9 @@ namespace PokerDraw
                 Table.AddPlayer(name, 1000);
             }
             var buttons = new List<Button> {
-                AnteCancelButton, AnteConfirmButton, DealCardsButton, NextButton, 
+                AnteCancelButton, AnteConfirmButton, DealCardsButton, NextButton,
                 ConfirmCardsChangeButton, HideCardsButton,
-                FoldButton, CheckButton, CallButton, BetButton, RaiseButton, 
+                FoldButton, CheckButton, CallButton, BetButton, RaiseButton,
                 BetCancelButton, BetConfirmButton
             };
             foreach (Button button in buttons)
@@ -104,7 +104,7 @@ namespace PokerDraw
             var playerDealerImages = new List<PictureBox> {
                 Player1DealerImage, Player2DealerImage, Player3DealerImage, Player4DealerImage
             };
-            var playerCrossImages = new List<PictureBox> { 
+            var playerCrossImages = new List<PictureBox> {
                 Player1CrossImage, Player2CrossImage, Player3CrossImage, Player4CrossImage
             };
             for (int i = 0; i < 4; i++)
@@ -569,7 +569,7 @@ namespace PokerDraw
                 CheckButton.Enabled = true;
             }
 
-            if ((currentGame.Bet == Table.Ante || (currentGame.Round == 4 && currentPlayer.Bet == currentGame.Bet)) 
+            if ((currentGame.Bet == Table.Ante || (currentGame.Round == 4 && currentPlayer.Bet == currentGame.Bet))
                 && currentPlayer.Bankroll > 0 && (currentGame.Round != 2) && (currentGame.Round != 5))
             {
                 BetButton.Enabled = true;
@@ -584,7 +584,7 @@ namespace PokerDraw
             }
 
             int amountToRaise = amountToCall + 1;
-            if (((currentGame.Round == 1 && currentGame.Bet != Table.Ante) 
+            if (((currentGame.Round == 1 && currentGame.Bet != Table.Ante)
                 || (currentGame.Round == 4 && currentPlayer.Bet < currentGame.Bet))
                 && currentPlayer.Bankroll > amountToRaise
                 && (currentGame.Round != 2) && (currentGame.Round != 5))
@@ -702,7 +702,7 @@ namespace PokerDraw
         private void ChangeCardButtonsText()
         {
             var changeCardButtons = new List<Button> {
-                ChangeCard1Button, ChangeCard2Button, ChangeCard3Button, ChangeCard4Button, ChangeCard5Button 
+                ChangeCard1Button, ChangeCard2Button, ChangeCard3Button, ChangeCard4Button, ChangeCard5Button
             };
             Player currentPlayer = Table.GetPlayer(Table.CurrentPlayerPosition);
             for (int i = 0; i < currentPlayer.Hand.GetNumberOfCards(); i++)

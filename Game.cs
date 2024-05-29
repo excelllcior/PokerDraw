@@ -32,8 +32,7 @@ namespace PokerDraw
 
         public void SetMaxBet(int playersBet)
         {
-            if (Bet < playersBet)
-                Bet = playersBet;
+            Bet = playersBet;
         }
 
         public void IncreaseRound()

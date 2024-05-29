@@ -104,6 +104,7 @@
             this.Player2CrossImage = new System.Windows.Forms.PictureBox();
             this.Player2DealerImage = new System.Windows.Forms.PictureBox();
             this.BackgroundImage = new System.Windows.Forms.PictureBox();
+            this.GameMaxBetLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBet)).BeginInit();
             this.ChangeCardsPanel.SuspendLayout();
             this.AntePanel.SuspendLayout();
@@ -1188,11 +1189,24 @@
             this.BackgroundImage.TabIndex = 16;
             this.BackgroundImage.TabStop = false;
             // 
+            // GameMaxBetLabel
+            // 
+            this.GameMaxBetLabel.AutoSize = true;
+            this.GameMaxBetLabel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.GameMaxBetLabel.Font = new System.Drawing.Font("Century Gothic", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.GameMaxBetLabel.ForeColor = System.Drawing.Color.White;
+            this.GameMaxBetLabel.Location = new System.Drawing.Point(161, 147);
+            this.GameMaxBetLabel.Name = "GameMaxBetLabel";
+            this.GameMaxBetLabel.Size = new System.Drawing.Size(124, 36);
+            this.GameMaxBetLabel.TabIndex = 23;
+            this.GameMaxBetLabel.Text = "Ставка";
+            // 
             // PokerTableScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.GameMaxBetLabel);
             this.Controls.Add(this.BetPanel);
             this.Controls.Add(this.Player4CrossImage);
             this.Controls.Add(this.StartGameButton);
@@ -1383,5 +1397,6 @@
         private System.Windows.Forms.Button BetConfirmButton;
         private System.Windows.Forms.Button BetCancelButton;
         private System.Windows.Forms.PictureBox NumericImage;
+        private System.Windows.Forms.Label GameMaxBetLabel;
     }
 }
