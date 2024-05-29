@@ -305,5 +305,17 @@
   <ItemGroup>
     <None Include="Resources\big_button.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\textbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\numeric.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\numeric_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\round_panel_big.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

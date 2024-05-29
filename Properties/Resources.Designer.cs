@@ -543,6 +543,26 @@ namespace PokerDraw.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap numeric {
+            get {
+                object obj = ResourceManager.GetObject("numeric", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap numeric_2 {
+            get {
+                object obj = ResourceManager.GetObject("numeric_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap player_panel {
             get {
                 object obj = ResourceManager.GetObject("player_panel", resourceCulture);
@@ -586,6 +606,16 @@ namespace PokerDraw.Properties {
         internal static System.Drawing.Bitmap round_panel {
             get {
                 object obj = ResourceManager.GetObject("round_panel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap round_panel_big {
+            get {
+                object obj = ResourceManager.GetObject("round_panel_big", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -726,6 +756,16 @@ namespace PokerDraw.Properties {
         internal static System.Drawing.Bitmap table {
             get {
                 object obj = ResourceManager.GetObject("table", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap textbox {
+            get {
+                object obj = ResourceManager.GetObject("textbox", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

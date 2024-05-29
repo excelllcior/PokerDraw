@@ -87,7 +87,7 @@ namespace PokerDraw
             RoundInfoLabel.Location = new Point(0, 26);
             // Картинка - Раунд
             RoundImage.Parent = BackgroundImage;
-            RoundImage.Location = new Point((formWidth - RoundImage.Width) / 2, 260);
+            RoundImage.Location = new Point((formWidth - RoundImage.Width) / 2, 220);
             // Лейблы - Панель игрока
             var playerImages = new List<PictureBox> {
                 Player1Image, Player2Image, Player3Image, Player4Image
@@ -198,6 +198,16 @@ namespace PokerDraw
                         playerImage.Image = (Bitmap)rm.GetObject("player_panel_selected");
                     else
                         playerImage.Image = (Bitmap)rm.GetObject("player_panel");
+
+                    if (player.Bankroll < Table.Ante && Table.GetCurrentGame().Round == 6)
+                    {
+                        nameLabel.ForeColor = Color.Silver;
+                        bankrollLabel.ForeColor = Color.Silver;
+                        moveLabel.ForeColor = Color.Silver;
+                        playerImage.Image = (Bitmap)rm.GetObject("player_panel_folded");
+                        moveLabel.Text = "ВЫБЫЛ";
+                        crossImage.Visible = true;
+                    }
                 }
                 else
                 {
@@ -315,6 +325,7 @@ namespace PokerDraw
                 RoundInfoLabel.Text = $"ДЛЯ УЧАСТИЯ В ИГРЕ НЕОБХОДИМО ВНЕСТИ ВСТУПИТЕЛЬНЫЙ ВЗНОС ${Table.Ante}";
                 StartGameButton.Visible = false;
                 NextButton.Visible = true;
+                NextButton.Enabled = false;
                 AnteConfirmButton.Enabled = true;
                 AnteCancelButton.Enabled = true;
                 AntePanel.Visible = true;
@@ -445,18 +456,59 @@ namespace PokerDraw
                     }
                     Table.DetermineWinners();
                     RoundNameLabel.Text = "РАУНД «ФИНАЛЬНОЕ ОТКРЫТИЕ»";
-                    RoundInfoLabel.Text = "ПОБЕДИТЕЛИ:";
                     decimal numberOfWinners = currentGame.GetNumberOfWinners();
                     decimal prize = Math.Round(currentGame.Pot / numberOfWinners, MidpointRounding.ToEven);
+                    if (currentGame.GetNumberOfWinners() > 1)
+                        RoundInfoLabel.Text = "ПОБЕДИТЕЛИ:";
+                    else
+                        RoundInfoLabel.Text = "ПОБЕДИТЕЛЬ:";
+
                     for (int i = 0; i < currentGame.GetNumberOfWinners(); i++)
                     {
                         var winner = currentGame.GetWinner(i);
-                        RoundInfoLabel.Text += $"{winner.Name.ToUpper()}";
-                        if (i != currentGame.GetNumberOfWinners())
-                            RoundInfoLabel.Text += ", ";
+                        RoundInfoLabel.Text += $" {winner.Name.ToUpper()}";
+                        if (i != currentGame.GetNumberOfWinners() - 1)
+                            RoundInfoLabel.Text += ",";
                         winner.IncreaseBankroll((int)prize);
                     }
-                    UpdatePlayerAndTableImages();
+
+                    string text = "\nКОМБИНАЦИЯ: ";
+                    var firstPlayer = Table.GetCurrentGame().GetWinner(0);
+                    Ranking winnerRanking = firstPlayer.Hand.Ranking;
+                    switch (winnerRanking)
+                    {
+                        case Ranking.HighCard:
+                            text += "ВЫСШАЯ КАРТА";
+                            break;
+                        case Ranking.Pair:
+                            text += "ПАРА";
+                            break;
+                        case Ranking.TwoPairs:
+                            text += "ДВЕ ПАРЫ";
+                            break;
+                        case Ranking.ThreeOfAKind:
+                            text += "ТРОЙКА";
+                            break;
+                        case Ranking.Straight:
+                            text += "СТРИТ";
+                            break;
+                        case Ranking.Flush:
+                            text += "ФЛЭШ";
+                            break;
+                        case Ranking.FullHouse:
+                            text += "ФУЛ ХАУС";
+                            break;
+                        case Ranking.FourOfAKind:
+                            text += "КАРЕ";
+                            break;
+                        case Ranking.StraightFlush:
+                            text += "СТРИТ ФЛЭШ";
+                            break;
+                        case Ranking.RoyalFlush:
+                            text += "ФЛЭШ РОЯЛЬ";
+                            break;
+                    }
+                    RoundInfoLabel.Text += text;
                 }
             }
             else
@@ -479,7 +531,6 @@ namespace PokerDraw
                     RoundInfoLabel.Text = $"{winner.Name.ToUpper()} ЗАБИРАЕТ БАНК";
                     winner.IncreaseBankroll(currentGame.Pot);
                 }
-                UpdatePlayerAndTableImages();
             }
         }
 
@@ -758,6 +809,7 @@ namespace PokerDraw
         {
             Player currentPlayer = Table.GetPlayer(Table.CurrentPlayerPosition);
             currentPlayer.Hand.Hide();
+            currentPlayer.Hand.SortCards();
             NextButton.Enabled = true;
             HideCardsButton.Enabled = false;
             ConfirmCardsChangeButton.Visible = false;

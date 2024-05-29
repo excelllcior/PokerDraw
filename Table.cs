@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace PokerDraw
 {
@@ -142,6 +143,9 @@ namespace PokerDraw
                 CurrentPlayerPosition = 0;
             else
                 CurrentPlayerPosition = CurrentDealerPosition + 1;
+
+            if (!_players[CurrentPlayerPosition].IsInGame) 
+                SwitchToNextPlayerInGame();
         }
 
         public void DetermineWinners()
@@ -164,61 +168,32 @@ namespace PokerDraw
                 }
             }
 
-            if (tempWinners.Count > 1)
+            for (int i = 0; i < 5; i++)
             {
-                if (highestRanking == Ranking.RoyalFlush)
+                int maxRank = 0;
+                foreach (Player player in _players)
                 {
-
-                }
-                else if (highestRanking == Ranking.StraightFlush)
-                {
-
-                }
-                else if (highestRanking == Ranking.FourOfAKind)
-                {
-
-                }
-                else if (highestRanking == Ranking.FullHouse)
-                {
-
-                }
-                else if (highestRanking == Ranking.Flush)
-                {
-
-                }
-                else if (highestRanking == Ranking.Straight)
-                {
-                    Rank rank = Rank.Two;
-                    foreach (var player in tempWinners)
+                    if (player.Hand.Ranking == highestRanking && player.IsInGame)
                     {
-                        var cards = new List<Card>();
-                        for (int i = 0; i < player.Hand.GetNumberOfCards(); i++)
-                            cards.Add(player.Hand.GetCard(i));
-
-                        if
+                        Hand hand = player.Hand;
+                        int rank = (int)hand.GetCard(i).Rank;
+                        if (rank > maxRank)
+                        {
+                            tempWinners.Clear();
+                            tempWinners.Add(player);
+                            maxRank = rank;
+                        }
+                        else if (rank == maxRank)
+                            tempWinners.Add(player);
                     }
+                    CompareKickers(tempWinners, 0);
                 }
-                else if (highestRanking == Ranking.ThreeOfAKind)
-                {
-
-                }
-                else if (highestRanking == Ranking.TwoPairs)
-                {
-
-                }
-                else if (highestRanking == Ranking.Pair)
-                {
-
-                }
-                else
-                {
-
-                } 
+                if (tempWinners.Count == 1)
+                    break;
             }
 
             foreach (Player player in tempWinners)
             {   
-                Console.WriteLine($"{player.Name}, {player.Hand.Ranking}");
                 _games.Last().AddWinner(player);
             }
         }

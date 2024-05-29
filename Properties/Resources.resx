@@ -121,6 +121,9 @@
   <data name="hearts_king" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\hearts_king.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="numeric_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\numeric_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="diamonds_nine" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\diamonds_nine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -129,9 +132,6 @@
   </data>
   <data name="clubs_five" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\clubs_five.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hearts_five" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hearts_five.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="clubs_six" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\clubs_six.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -241,20 +241,17 @@
   <data name="pot" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="diamonds_seven" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\diamonds_seven.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="numeric" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\numeric.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="diamonds_eight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\diamonds_eight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="clubs_king" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\clubs_king.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bg_poker" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bg_poker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="clubs_ten" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\clubs_ten.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="clubs_queen" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\clubs_queen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="hearts_queen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\hearts_queen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -262,8 +259,11 @@
   <data name="dealer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dealer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="diamonds_four" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\diamonds_four.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="hearts_five" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hearts_five.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="textbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\textbox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cross" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cross.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -283,6 +283,12 @@
   <data name="player_panel_folded" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\player_panel_folded.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="big_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\big_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="diamonds_four" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\diamonds_four.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="bg_title" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bg_title.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -292,11 +298,14 @@
   <data name="diamonds_six" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\diamonds_six.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bg_poker" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bg_poker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="clubs_queen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\clubs_queen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="clubs_three" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\clubs_three.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="clubs_king" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\clubs_king.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="spades_two" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\spades_two.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -307,6 +316,9 @@
   <data name="clubs_jack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\clubs_jack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="diamonds_seven" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\diamonds_seven.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="player_panel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\player_panel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -316,7 +328,7 @@
   <data name="diamonds_five" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\diamonds_five.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="big_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\big_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="round_panel_big" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\round_panel_big.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

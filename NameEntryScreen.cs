@@ -16,6 +16,7 @@ namespace PokerDraw
             PlayerNumberLabel.Parent = BackgroundImage;
             NameLabel.Parent = BackgroundImage;
             NameTextBox.Parent = BackgroundImage;
+            TextBoxImage.Parent = BackgroundImage;
             NextButton.Parent = BackgroundImage;
         }
 

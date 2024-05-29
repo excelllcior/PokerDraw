@@ -31,8 +31,10 @@
             this.PlayerNumberLabel = new System.Windows.Forms.Label();
             this.NameLabel = new System.Windows.Forms.Label();
             this.NameTextBox = new System.Windows.Forms.TextBox();
+            this.TextBoxImage = new System.Windows.Forms.PictureBox();
             this.NextButton = new System.Windows.Forms.Button();
             this.BackgroundImage = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.TextBoxImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackgroundImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,7 +44,7 @@
             this.PlayerNumberLabel.BackColor = System.Drawing.Color.Transparent;
             this.PlayerNumberLabel.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.PlayerNumberLabel.ForeColor = System.Drawing.Color.White;
-            this.PlayerNumberLabel.Location = new System.Drawing.Point(73, 9);
+            this.PlayerNumberLabel.Location = new System.Drawing.Point(12, 9);
             this.PlayerNumberLabel.Name = "PlayerNumberLabel";
             this.PlayerNumberLabel.Size = new System.Drawing.Size(72, 19);
             this.PlayerNumberLabel.TabIndex = 0;
@@ -62,12 +64,24 @@
             // 
             // NameTextBox
             // 
-            this.NameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.NameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.NameTextBox.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.NameTextBox.ForeColor = System.Drawing.Color.Black;
-            this.NameTextBox.Location = new System.Drawing.Point(12, 65);
+            this.NameTextBox.Location = new System.Drawing.Point(28, 74);
             this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(187, 20);
+            this.NameTextBox.Size = new System.Drawing.Size(150, 20);
             this.NameTextBox.TabIndex = 2;
+            // 
+            // TextBoxImage
+            // 
+            this.TextBoxImage.BackColor = System.Drawing.Color.Transparent;
+            this.TextBoxImage.Image = global::PokerDraw.Properties.Resources.textbox;
+            this.TextBoxImage.Location = new System.Drawing.Point(15, 65);
+            this.TextBoxImage.Name = "TextBoxImage";
+            this.TextBoxImage.Size = new System.Drawing.Size(179, 38);
+            this.TextBoxImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.TextBoxImage.TabIndex = 24;
+            this.TextBoxImage.TabStop = false;
             // 
             // NextButton
             // 
@@ -80,7 +94,7 @@
             this.NextButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.NextButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.NextButton.ForeColor = System.Drawing.Color.White;
-            this.NextButton.Location = new System.Drawing.Point(38, 91);
+            this.NextButton.Location = new System.Drawing.Point(41, 116);
             this.NextButton.Name = "NextButton";
             this.NextButton.Size = new System.Drawing.Size(125, 38);
             this.NextButton.TabIndex = 22;
@@ -102,15 +116,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(211, 141);
-            this.Controls.Add(this.NextButton);
+            this.ClientSize = new System.Drawing.Size(213, 166);
             this.Controls.Add(this.NameTextBox);
+            this.Controls.Add(this.TextBoxImage);
+            this.Controls.Add(this.NextButton);
             this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.PlayerNumberLabel);
             this.Controls.Add(this.BackgroundImage);
             this.Name = "NameEntryScreen";
             this.Text = "Ввод имени";
             this.Load += new System.EventHandler(this.NameEntryScreen_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.TextBoxImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackgroundImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -124,5 +140,6 @@
         private System.Windows.Forms.TextBox NameTextBox;
         private System.Windows.Forms.Button NextButton;
         private System.Windows.Forms.PictureBox BackgroundImage;
+        private System.Windows.Forms.PictureBox TextBoxImage;
     }
 }

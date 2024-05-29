@@ -60,13 +60,14 @@ namespace PokerDraw
 
         public void SortCards()
         {
-            var sortedCards = new List<Card>();
-            sortedCards = _cards.OrderByDescending(c => c.Rank).ToList();
+            var groupedCards = _cards.GroupBy(c => c.Rank)
+                               .OrderByDescending(g => g.Count())
+                               .ThenByDescending(g => g.Key);
+            var sortedCards = groupedCards.SelectMany(g => g).ToList();
+            var remainingSingleCards = _cards.Except(sortedCards).OrderByDescending(c => c.Rank).ToList();
+            sortedCards.AddRange(remainingSingleCards);
             _cards.Clear();
-            foreach (Card card in sortedCards)
-            {
-                _cards.Add(card);
-            }
+            _cards.AddRange(sortedCards);
         }
 
         public void Clear()
