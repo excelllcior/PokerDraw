@@ -38,6 +38,8 @@ namespace PokerDraw
                     if (_playerNames.Count == _numberOfPlayers)
                     {
                         NameTextBox.Enabled = false;
+                        PlayerNumberLabel.Text = "ИГРОКИ ГОТОВЫ";
+                        NameLabel.Text = "ВСЕ ИМЕНА ВВЕДЕНЫ";
                         NextButton.Text = "НАЧАТЬ";
                     }
                     else

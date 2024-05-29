@@ -109,8 +109,10 @@
             this.Controls.Add(this.StartFor3PLayersButton);
             this.Controls.Add(this.StartFor2PLayersButton);
             this.Controls.Add(this.BackgroundImage);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "TitleScreen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Главный экран";
             ((System.ComponentModel.ISupportInitialize)(this.BackgroundImage)).EndInit();
             this.ResumeLayout(false);

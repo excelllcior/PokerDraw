@@ -67,9 +67,9 @@
             this.NameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.NameTextBox.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.NameTextBox.ForeColor = System.Drawing.Color.Black;
-            this.NameTextBox.Location = new System.Drawing.Point(28, 74);
+            this.NameTextBox.Location = new System.Drawing.Point(32, 74);
             this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(150, 20);
+            this.NameTextBox.Size = new System.Drawing.Size(144, 20);
             this.NameTextBox.TabIndex = 2;
             // 
             // TextBoxImage
@@ -92,9 +92,9 @@
             this.NextButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.NextButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.NextButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NextButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.NextButton.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.NextButton.ForeColor = System.Drawing.Color.White;
-            this.NextButton.Location = new System.Drawing.Point(41, 116);
+            this.NextButton.Location = new System.Drawing.Point(40, 116);
             this.NextButton.Name = "NextButton";
             this.NextButton.Size = new System.Drawing.Size(125, 38);
             this.NextButton.TabIndex = 22;
@@ -123,7 +123,10 @@
             this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.PlayerNumberLabel);
             this.Controls.Add(this.BackgroundImage);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "NameEntryScreen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ввод имени";
             this.Load += new System.EventHandler(this.NameEntryScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.TextBoxImage)).EndInit();

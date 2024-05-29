@@ -44,8 +44,20 @@
             this.PotLabel = new System.Windows.Forms.Label();
             this.PotValueLabel = new System.Windows.Forms.Label();
             this.ChangeCardsPanel = new System.Windows.Forms.Panel();
+            this.ChangeCard5Button = new System.Windows.Forms.Button();
+            this.ChangeCard4Button = new System.Windows.Forms.Button();
+            this.ChangeCard3Button = new System.Windows.Forms.Button();
+            this.ChangeCard2Button = new System.Windows.Forms.Button();
+            this.ChangeCard1Button = new System.Windows.Forms.Button();
             this.AntePanel = new System.Windows.Forms.Panel();
+            this.AnteCancelButton = new System.Windows.Forms.Button();
+            this.AnteConfirmButton = new System.Windows.Forms.Button();
             this.MoveSelectionPanel = new System.Windows.Forms.Panel();
+            this.RaiseButton = new System.Windows.Forms.Button();
+            this.CallButton = new System.Windows.Forms.Button();
+            this.BetButton = new System.Windows.Forms.Button();
+            this.CheckButton = new System.Windows.Forms.Button();
+            this.FoldButton = new System.Windows.Forms.Button();
             this.RoundNameLabel = new System.Windows.Forms.Label();
             this.RoundInfoLabel = new System.Windows.Forms.Label();
             this.BetPanel = new System.Windows.Forms.Panel();
@@ -67,18 +79,6 @@
             this.Player4DealerImage = new System.Windows.Forms.PictureBox();
             this.Player3DealerImage = new System.Windows.Forms.PictureBox();
             this.RoundImage = new System.Windows.Forms.PictureBox();
-            this.AnteCancelButton = new System.Windows.Forms.Button();
-            this.AnteConfirmButton = new System.Windows.Forms.Button();
-            this.RaiseButton = new System.Windows.Forms.Button();
-            this.CallButton = new System.Windows.Forms.Button();
-            this.BetButton = new System.Windows.Forms.Button();
-            this.CheckButton = new System.Windows.Forms.Button();
-            this.FoldButton = new System.Windows.Forms.Button();
-            this.ChangeCard5Button = new System.Windows.Forms.Button();
-            this.ChangeCard4Button = new System.Windows.Forms.Button();
-            this.ChangeCard3Button = new System.Windows.Forms.Button();
-            this.ChangeCard2Button = new System.Windows.Forms.Button();
-            this.ChangeCard1Button = new System.Windows.Forms.Button();
             this.Player4Image = new System.Windows.Forms.PictureBox();
             this.Player3Image = new System.Windows.Forms.PictureBox();
             this.Player2Image = new System.Windows.Forms.PictureBox();
@@ -337,6 +337,101 @@
             this.ChangeCardsPanel.TabIndex = 18;
             this.ChangeCardsPanel.Visible = false;
             // 
+            // ChangeCard5Button
+            // 
+            this.ChangeCard5Button.BackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard5Button.BackgroundImage = global::PokerDraw.Properties.Resources.button;
+            this.ChangeCard5Button.FlatAppearance.BorderSize = 0;
+            this.ChangeCard5Button.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard5Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard5Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard5Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeCard5Button.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.ChangeCard5Button.ForeColor = System.Drawing.Color.White;
+            this.ChangeCard5Button.Location = new System.Drawing.Point(530, 3);
+            this.ChangeCard5Button.Name = "ChangeCard5Button";
+            this.ChangeCard5Button.Size = new System.Drawing.Size(125, 38);
+            this.ChangeCard5Button.TabIndex = 21;
+            this.ChangeCard5Button.Text = "2 ♠";
+            this.ChangeCard5Button.UseVisualStyleBackColor = true;
+            this.ChangeCard5Button.Click += new System.EventHandler(this.ChangeCard5Button_Click);
+            // 
+            // ChangeCard4Button
+            // 
+            this.ChangeCard4Button.BackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard4Button.BackgroundImage = global::PokerDraw.Properties.Resources.button;
+            this.ChangeCard4Button.FlatAppearance.BorderSize = 0;
+            this.ChangeCard4Button.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard4Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard4Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard4Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeCard4Button.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.ChangeCard4Button.ForeColor = System.Drawing.Color.White;
+            this.ChangeCard4Button.Location = new System.Drawing.Point(399, 3);
+            this.ChangeCard4Button.Name = "ChangeCard4Button";
+            this.ChangeCard4Button.Size = new System.Drawing.Size(125, 38);
+            this.ChangeCard4Button.TabIndex = 21;
+            this.ChangeCard4Button.Text = "ТУЗ ♦";
+            this.ChangeCard4Button.UseVisualStyleBackColor = true;
+            this.ChangeCard4Button.Click += new System.EventHandler(this.ChangeCard4Button_Click);
+            // 
+            // ChangeCard3Button
+            // 
+            this.ChangeCard3Button.BackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard3Button.BackgroundImage = global::PokerDraw.Properties.Resources.button;
+            this.ChangeCard3Button.FlatAppearance.BorderSize = 0;
+            this.ChangeCard3Button.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard3Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard3Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard3Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeCard3Button.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.ChangeCard3Button.ForeColor = System.Drawing.Color.White;
+            this.ChangeCard3Button.Location = new System.Drawing.Point(268, 3);
+            this.ChangeCard3Button.Name = "ChangeCard3Button";
+            this.ChangeCard3Button.Size = new System.Drawing.Size(125, 38);
+            this.ChangeCard3Button.TabIndex = 21;
+            this.ChangeCard3Button.Text = "ДАМА ♥";
+            this.ChangeCard3Button.UseVisualStyleBackColor = true;
+            this.ChangeCard3Button.Click += new System.EventHandler(this.ChangeCard3Button_Click);
+            // 
+            // ChangeCard2Button
+            // 
+            this.ChangeCard2Button.BackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard2Button.BackgroundImage = global::PokerDraw.Properties.Resources.button;
+            this.ChangeCard2Button.FlatAppearance.BorderSize = 0;
+            this.ChangeCard2Button.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard2Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard2Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard2Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeCard2Button.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.ChangeCard2Button.ForeColor = System.Drawing.Color.White;
+            this.ChangeCard2Button.Location = new System.Drawing.Point(134, 3);
+            this.ChangeCard2Button.Name = "ChangeCard2Button";
+            this.ChangeCard2Button.Size = new System.Drawing.Size(125, 38);
+            this.ChangeCard2Button.TabIndex = 21;
+            this.ChangeCard2Button.Text = "10 ♣";
+            this.ChangeCard2Button.UseVisualStyleBackColor = false;
+            this.ChangeCard2Button.Click += new System.EventHandler(this.ChangeCard2Button_Click);
+            // 
+            // ChangeCard1Button
+            // 
+            this.ChangeCard1Button.BackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard1Button.BackgroundImage = global::PokerDraw.Properties.Resources.button;
+            this.ChangeCard1Button.FlatAppearance.BorderSize = 0;
+            this.ChangeCard1Button.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard1Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard1Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.ChangeCard1Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeCard1Button.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.ChangeCard1Button.ForeColor = System.Drawing.Color.White;
+            this.ChangeCard1Button.Location = new System.Drawing.Point(3, 3);
+            this.ChangeCard1Button.Name = "ChangeCard1Button";
+            this.ChangeCard1Button.Size = new System.Drawing.Size(125, 38);
+            this.ChangeCard1Button.TabIndex = 21;
+            this.ChangeCard1Button.Text = "9 ♣";
+            this.ChangeCard1Button.UseVisualStyleBackColor = true;
+            this.ChangeCard1Button.Click += new System.EventHandler(this.ChangeCard1Button_Click);
+            // 
             // AntePanel
             // 
             this.AntePanel.BackColor = System.Drawing.Color.Transparent;
@@ -347,6 +442,44 @@
             this.AntePanel.Size = new System.Drawing.Size(261, 54);
             this.AntePanel.TabIndex = 19;
             this.AntePanel.Visible = false;
+            // 
+            // AnteCancelButton
+            // 
+            this.AnteCancelButton.BackColor = System.Drawing.Color.Transparent;
+            this.AnteCancelButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
+            this.AnteCancelButton.FlatAppearance.BorderSize = 0;
+            this.AnteCancelButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.AnteCancelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.AnteCancelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.AnteCancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AnteCancelButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.AnteCancelButton.ForeColor = System.Drawing.Color.White;
+            this.AnteCancelButton.Location = new System.Drawing.Point(134, 3);
+            this.AnteCancelButton.Name = "AnteCancelButton";
+            this.AnteCancelButton.Size = new System.Drawing.Size(125, 38);
+            this.AnteCancelButton.TabIndex = 21;
+            this.AnteCancelButton.Text = "ОТКЛОНИТЬ";
+            this.AnteCancelButton.UseVisualStyleBackColor = true;
+            this.AnteCancelButton.Click += new System.EventHandler(this.AnteCancelButton_Click);
+            // 
+            // AnteConfirmButton
+            // 
+            this.AnteConfirmButton.BackColor = System.Drawing.Color.Transparent;
+            this.AnteConfirmButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
+            this.AnteConfirmButton.FlatAppearance.BorderSize = 0;
+            this.AnteConfirmButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.AnteConfirmButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.AnteConfirmButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.AnteConfirmButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AnteConfirmButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.AnteConfirmButton.ForeColor = System.Drawing.Color.White;
+            this.AnteConfirmButton.Location = new System.Drawing.Point(3, 3);
+            this.AnteConfirmButton.Name = "AnteConfirmButton";
+            this.AnteConfirmButton.Size = new System.Drawing.Size(125, 38);
+            this.AnteConfirmButton.TabIndex = 21;
+            this.AnteConfirmButton.Text = "ВНЕСТИ АНТЕ";
+            this.AnteConfirmButton.UseVisualStyleBackColor = true;
+            this.AnteConfirmButton.Click += new System.EventHandler(this.AnteConfirmButton_Click);
             // 
             // MoveSelectionPanel
             // 
@@ -361,6 +494,101 @@
             this.MoveSelectionPanel.Size = new System.Drawing.Size(656, 54);
             this.MoveSelectionPanel.TabIndex = 18;
             this.MoveSelectionPanel.Visible = false;
+            // 
+            // RaiseButton
+            // 
+            this.RaiseButton.BackColor = System.Drawing.Color.Transparent;
+            this.RaiseButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
+            this.RaiseButton.FlatAppearance.BorderSize = 0;
+            this.RaiseButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.RaiseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.RaiseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.RaiseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RaiseButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.RaiseButton.ForeColor = System.Drawing.Color.White;
+            this.RaiseButton.Location = new System.Drawing.Point(530, 3);
+            this.RaiseButton.Name = "RaiseButton";
+            this.RaiseButton.Size = new System.Drawing.Size(125, 38);
+            this.RaiseButton.TabIndex = 21;
+            this.RaiseButton.Text = "РАЙЗ";
+            this.RaiseButton.UseVisualStyleBackColor = true;
+            this.RaiseButton.Click += new System.EventHandler(this.RaiseButton_Click);
+            // 
+            // CallButton
+            // 
+            this.CallButton.BackColor = System.Drawing.Color.Transparent;
+            this.CallButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
+            this.CallButton.FlatAppearance.BorderSize = 0;
+            this.CallButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.CallButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.CallButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.CallButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CallButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.CallButton.ForeColor = System.Drawing.Color.White;
+            this.CallButton.Location = new System.Drawing.Point(399, 3);
+            this.CallButton.Name = "CallButton";
+            this.CallButton.Size = new System.Drawing.Size(125, 38);
+            this.CallButton.TabIndex = 21;
+            this.CallButton.Text = "КОЛЛ";
+            this.CallButton.UseVisualStyleBackColor = true;
+            this.CallButton.Click += new System.EventHandler(this.CallButton_Click);
+            // 
+            // BetButton
+            // 
+            this.BetButton.BackColor = System.Drawing.Color.Transparent;
+            this.BetButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
+            this.BetButton.FlatAppearance.BorderSize = 0;
+            this.BetButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.BetButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BetButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BetButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.BetButton.ForeColor = System.Drawing.Color.White;
+            this.BetButton.Location = new System.Drawing.Point(268, 3);
+            this.BetButton.Name = "BetButton";
+            this.BetButton.Size = new System.Drawing.Size(125, 38);
+            this.BetButton.TabIndex = 21;
+            this.BetButton.Text = "БЕТ";
+            this.BetButton.UseVisualStyleBackColor = true;
+            this.BetButton.Click += new System.EventHandler(this.BetButton_Click);
+            // 
+            // CheckButton
+            // 
+            this.CheckButton.BackColor = System.Drawing.Color.Transparent;
+            this.CheckButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
+            this.CheckButton.FlatAppearance.BorderSize = 0;
+            this.CheckButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.CheckButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.CheckButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.CheckButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CheckButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.CheckButton.ForeColor = System.Drawing.Color.White;
+            this.CheckButton.Location = new System.Drawing.Point(134, 3);
+            this.CheckButton.Name = "CheckButton";
+            this.CheckButton.Size = new System.Drawing.Size(125, 38);
+            this.CheckButton.TabIndex = 21;
+            this.CheckButton.Text = "ЧЕК";
+            this.CheckButton.UseVisualStyleBackColor = false;
+            this.CheckButton.Click += new System.EventHandler(this.CheckButton_Click);
+            // 
+            // FoldButton
+            // 
+            this.FoldButton.BackColor = System.Drawing.Color.Transparent;
+            this.FoldButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
+            this.FoldButton.FlatAppearance.BorderSize = 0;
+            this.FoldButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.FoldButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.FoldButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.FoldButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FoldButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.FoldButton.ForeColor = System.Drawing.Color.White;
+            this.FoldButton.Location = new System.Drawing.Point(3, 3);
+            this.FoldButton.Name = "FoldButton";
+            this.FoldButton.Size = new System.Drawing.Size(125, 38);
+            this.FoldButton.TabIndex = 21;
+            this.FoldButton.Text = "ФОЛД";
+            this.FoldButton.UseVisualStyleBackColor = true;
+            this.FoldButton.Click += new System.EventHandler(this.FoldButton_Click);
             // 
             // RoundNameLabel
             // 
@@ -663,234 +891,6 @@
             this.RoundImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.RoundImage.TabIndex = 20;
             this.RoundImage.TabStop = false;
-            // 
-            // AnteCancelButton
-            // 
-            this.AnteCancelButton.BackColor = System.Drawing.Color.Transparent;
-            this.AnteCancelButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
-            this.AnteCancelButton.FlatAppearance.BorderSize = 0;
-            this.AnteCancelButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.AnteCancelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.AnteCancelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.AnteCancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AnteCancelButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.AnteCancelButton.ForeColor = System.Drawing.Color.White;
-            this.AnteCancelButton.Location = new System.Drawing.Point(134, 3);
-            this.AnteCancelButton.Name = "AnteCancelButton";
-            this.AnteCancelButton.Size = new System.Drawing.Size(125, 38);
-            this.AnteCancelButton.TabIndex = 21;
-            this.AnteCancelButton.Text = "ОТКЛОНИТЬ";
-            this.AnteCancelButton.UseVisualStyleBackColor = true;
-            this.AnteCancelButton.Click += new System.EventHandler(this.AnteCancelButton_Click);
-            // 
-            // AnteConfirmButton
-            // 
-            this.AnteConfirmButton.BackColor = System.Drawing.Color.Transparent;
-            this.AnteConfirmButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
-            this.AnteConfirmButton.FlatAppearance.BorderSize = 0;
-            this.AnteConfirmButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.AnteConfirmButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.AnteConfirmButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.AnteConfirmButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AnteConfirmButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.AnteConfirmButton.ForeColor = System.Drawing.Color.White;
-            this.AnteConfirmButton.Location = new System.Drawing.Point(3, 3);
-            this.AnteConfirmButton.Name = "AnteConfirmButton";
-            this.AnteConfirmButton.Size = new System.Drawing.Size(125, 38);
-            this.AnteConfirmButton.TabIndex = 21;
-            this.AnteConfirmButton.Text = "ВНЕСТИ АНТЕ";
-            this.AnteConfirmButton.UseVisualStyleBackColor = true;
-            this.AnteConfirmButton.Click += new System.EventHandler(this.AnteConfirmButton_Click);
-            // 
-            // RaiseButton
-            // 
-            this.RaiseButton.BackColor = System.Drawing.Color.Transparent;
-            this.RaiseButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
-            this.RaiseButton.FlatAppearance.BorderSize = 0;
-            this.RaiseButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.RaiseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.RaiseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.RaiseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RaiseButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.RaiseButton.ForeColor = System.Drawing.Color.White;
-            this.RaiseButton.Location = new System.Drawing.Point(530, 3);
-            this.RaiseButton.Name = "RaiseButton";
-            this.RaiseButton.Size = new System.Drawing.Size(125, 38);
-            this.RaiseButton.TabIndex = 21;
-            this.RaiseButton.Text = "РАЙЗ";
-            this.RaiseButton.UseVisualStyleBackColor = true;
-            this.RaiseButton.Click += new System.EventHandler(this.RaiseButton_Click);
-            // 
-            // CallButton
-            // 
-            this.CallButton.BackColor = System.Drawing.Color.Transparent;
-            this.CallButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
-            this.CallButton.FlatAppearance.BorderSize = 0;
-            this.CallButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.CallButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.CallButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.CallButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CallButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.CallButton.ForeColor = System.Drawing.Color.White;
-            this.CallButton.Location = new System.Drawing.Point(399, 3);
-            this.CallButton.Name = "CallButton";
-            this.CallButton.Size = new System.Drawing.Size(125, 38);
-            this.CallButton.TabIndex = 21;
-            this.CallButton.Text = "КОЛЛ";
-            this.CallButton.UseVisualStyleBackColor = true;
-            this.CallButton.Click += new System.EventHandler(this.CallButton_Click);
-            // 
-            // BetButton
-            // 
-            this.BetButton.BackColor = System.Drawing.Color.Transparent;
-            this.BetButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
-            this.BetButton.FlatAppearance.BorderSize = 0;
-            this.BetButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.BetButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.BetButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.BetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BetButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.BetButton.ForeColor = System.Drawing.Color.White;
-            this.BetButton.Location = new System.Drawing.Point(268, 3);
-            this.BetButton.Name = "BetButton";
-            this.BetButton.Size = new System.Drawing.Size(125, 38);
-            this.BetButton.TabIndex = 21;
-            this.BetButton.Text = "БЕТ";
-            this.BetButton.UseVisualStyleBackColor = true;
-            this.BetButton.Click += new System.EventHandler(this.BetButton_Click);
-            // 
-            // CheckButton
-            // 
-            this.CheckButton.BackColor = System.Drawing.Color.Transparent;
-            this.CheckButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
-            this.CheckButton.FlatAppearance.BorderSize = 0;
-            this.CheckButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.CheckButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.CheckButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.CheckButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CheckButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.CheckButton.ForeColor = System.Drawing.Color.White;
-            this.CheckButton.Location = new System.Drawing.Point(134, 3);
-            this.CheckButton.Name = "CheckButton";
-            this.CheckButton.Size = new System.Drawing.Size(125, 38);
-            this.CheckButton.TabIndex = 21;
-            this.CheckButton.Text = "ЧЕК";
-            this.CheckButton.UseVisualStyleBackColor = false;
-            this.CheckButton.Click += new System.EventHandler(this.CheckButton_Click);
-            // 
-            // FoldButton
-            // 
-            this.FoldButton.BackColor = System.Drawing.Color.Transparent;
-            this.FoldButton.BackgroundImage = global::PokerDraw.Properties.Resources.button;
-            this.FoldButton.FlatAppearance.BorderSize = 0;
-            this.FoldButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.FoldButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.FoldButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.FoldButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FoldButton.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.FoldButton.ForeColor = System.Drawing.Color.White;
-            this.FoldButton.Location = new System.Drawing.Point(3, 3);
-            this.FoldButton.Name = "FoldButton";
-            this.FoldButton.Size = new System.Drawing.Size(125, 38);
-            this.FoldButton.TabIndex = 21;
-            this.FoldButton.Text = "ФОЛД";
-            this.FoldButton.UseVisualStyleBackColor = true;
-            this.FoldButton.Click += new System.EventHandler(this.FoldButton_Click);
-            // 
-            // ChangeCard5Button
-            // 
-            this.ChangeCard5Button.BackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard5Button.BackgroundImage = global::PokerDraw.Properties.Resources.button;
-            this.ChangeCard5Button.FlatAppearance.BorderSize = 0;
-            this.ChangeCard5Button.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard5Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard5Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard5Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChangeCard5Button.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.ChangeCard5Button.ForeColor = System.Drawing.Color.White;
-            this.ChangeCard5Button.Location = new System.Drawing.Point(530, 3);
-            this.ChangeCard5Button.Name = "ChangeCard5Button";
-            this.ChangeCard5Button.Size = new System.Drawing.Size(125, 38);
-            this.ChangeCard5Button.TabIndex = 21;
-            this.ChangeCard5Button.Text = "2 ♠";
-            this.ChangeCard5Button.UseVisualStyleBackColor = true;
-            this.ChangeCard5Button.Click += new System.EventHandler(this.ChangeCard5Button_Click);
-            // 
-            // ChangeCard4Button
-            // 
-            this.ChangeCard4Button.BackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard4Button.BackgroundImage = global::PokerDraw.Properties.Resources.button;
-            this.ChangeCard4Button.FlatAppearance.BorderSize = 0;
-            this.ChangeCard4Button.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard4Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard4Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard4Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChangeCard4Button.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.ChangeCard4Button.ForeColor = System.Drawing.Color.White;
-            this.ChangeCard4Button.Location = new System.Drawing.Point(399, 3);
-            this.ChangeCard4Button.Name = "ChangeCard4Button";
-            this.ChangeCard4Button.Size = new System.Drawing.Size(125, 38);
-            this.ChangeCard4Button.TabIndex = 21;
-            this.ChangeCard4Button.Text = "ТУЗ ♦";
-            this.ChangeCard4Button.UseVisualStyleBackColor = true;
-            this.ChangeCard4Button.Click += new System.EventHandler(this.ChangeCard4Button_Click);
-            // 
-            // ChangeCard3Button
-            // 
-            this.ChangeCard3Button.BackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard3Button.BackgroundImage = global::PokerDraw.Properties.Resources.button;
-            this.ChangeCard3Button.FlatAppearance.BorderSize = 0;
-            this.ChangeCard3Button.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard3Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard3Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard3Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChangeCard3Button.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.ChangeCard3Button.ForeColor = System.Drawing.Color.White;
-            this.ChangeCard3Button.Location = new System.Drawing.Point(268, 3);
-            this.ChangeCard3Button.Name = "ChangeCard3Button";
-            this.ChangeCard3Button.Size = new System.Drawing.Size(125, 38);
-            this.ChangeCard3Button.TabIndex = 21;
-            this.ChangeCard3Button.Text = "ДАМА ♥";
-            this.ChangeCard3Button.UseVisualStyleBackColor = true;
-            this.ChangeCard3Button.Click += new System.EventHandler(this.ChangeCard3Button_Click);
-            // 
-            // ChangeCard2Button
-            // 
-            this.ChangeCard2Button.BackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard2Button.BackgroundImage = global::PokerDraw.Properties.Resources.button;
-            this.ChangeCard2Button.FlatAppearance.BorderSize = 0;
-            this.ChangeCard2Button.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard2Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard2Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard2Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChangeCard2Button.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.ChangeCard2Button.ForeColor = System.Drawing.Color.White;
-            this.ChangeCard2Button.Location = new System.Drawing.Point(134, 3);
-            this.ChangeCard2Button.Name = "ChangeCard2Button";
-            this.ChangeCard2Button.Size = new System.Drawing.Size(125, 38);
-            this.ChangeCard2Button.TabIndex = 21;
-            this.ChangeCard2Button.Text = "10 ♣";
-            this.ChangeCard2Button.UseVisualStyleBackColor = false;
-            this.ChangeCard2Button.Click += new System.EventHandler(this.ChangeCard2Button_Click);
-            // 
-            // ChangeCard1Button
-            // 
-            this.ChangeCard1Button.BackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard1Button.BackgroundImage = global::PokerDraw.Properties.Resources.button;
-            this.ChangeCard1Button.FlatAppearance.BorderSize = 0;
-            this.ChangeCard1Button.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard1Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard1Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.ChangeCard1Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChangeCard1Button.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
-            this.ChangeCard1Button.ForeColor = System.Drawing.Color.White;
-            this.ChangeCard1Button.Location = new System.Drawing.Point(3, 3);
-            this.ChangeCard1Button.Name = "ChangeCard1Button";
-            this.ChangeCard1Button.Size = new System.Drawing.Size(125, 38);
-            this.ChangeCard1Button.TabIndex = 21;
-            this.ChangeCard1Button.Text = "9 ♣";
-            this.ChangeCard1Button.UseVisualStyleBackColor = true;
-            this.ChangeCard1Button.Click += new System.EventHandler(this.ChangeCard1Button_Click);
             // 
             // Player4Image
             // 
@@ -1253,7 +1253,10 @@
             this.Controls.Add(this.Player1BankrollLabel);
             this.Controls.Add(this.Player1NameLabel);
             this.Controls.Add(this.BackgroundImage);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "PokerTableScreen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Покерный стол";
             this.Load += new System.EventHandler(this.PokerTableScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBet)).EndInit();
